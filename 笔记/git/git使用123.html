@@ -19,8 +19,22 @@
 
         https://blog.csdn.net/weixin_44950987/article/details/102619708
 
+        1、如何初始化本地仓库，并关联远程仓库
 
-        1、提交 
+            git init                                             初始化本地仓库git
+
+            git remote add 远程仓库名 远程仓库http/ssh地址         关联远程仓库
+
+            git fetch                                            拉取远程仓库
+
+        2、修改origin/HEAD指针的指向    暂时没发现有啥用
+
+            git remote set-head origin 分支名                     修改origin/HEAD指针指向 分支名  
+
+            git remote set-head origin -d                         删除origin/HEAD指针
+
+
+        3、提交 
 
             git add .                       将更新提交到暂存区
 
@@ -28,7 +42,7 @@
 
             git push                        将更新提交到远程仓库
 
-        2、配置git用户config
+        4、配置git用户config
 
             git config --global user.name "username"
 
@@ -38,7 +52,7 @@
                        --system            查看当前电脑系统config配置
                        --local             查看当前仓库用户config配置
 
-        3、分支
+        5、分支
             
             1.基础命令
 
@@ -114,7 +128,7 @@
 
                 git merge 分支名                               将本地仓库中的某分支合并到当前分支
 
-                git merge --no-ff 分支名                       非快进合并 
+                git merge --no-ff 分支名                       非快进合并   合并过程中需要输入合并备注，写好后关闭备注文件即可自动进行接下来的合并
      -->
 </body>
 
