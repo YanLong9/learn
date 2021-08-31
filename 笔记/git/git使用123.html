@@ -126,9 +126,24 @@
 
                 git rebase 分支名                              将本地仓库中的某分支合并到当前分支
 
+                    当有多个节点需要rebase时，解决完一个节点的冲突后，需要提交然后再解决下一个节点，rebase中的提交不能使用commit
+                        首先 git add ./文件
+                        接着 git rebase --continue
+                        然后vim编辑器就会弹出注释文件，写好提交注释，关闭该文件，即可进入下一个节点的处理
+
+                    在develop分支git rebase feat-test ，develop有两个提交记录a,b ，feat-test有两个提交记录c,d
+                        
+                        ————>  a   ————>  b/develop 
+                        ————>  c   ————>  d/feat-test
+
+                    rebase后，会
+
+                        ————>  c   ————>  d/feat-test  ————>  a   ————>  b/develop  
+
                 git merge 分支名                               将本地仓库中的某分支合并到当前分支
 
-                git merge --no-ff 分支名                       非快进合并   合并过程中需要输入合并备注，写好后关闭备注文件即可自动进行接下来的合并
+                git merge --no-ff 分支名                       非快速合并   合并过程中需要输入合并备注，写好后关闭备注文件即可自动进行接下来的合并
+
      -->
 </body>
 
