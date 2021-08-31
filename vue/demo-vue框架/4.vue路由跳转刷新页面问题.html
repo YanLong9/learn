@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        
+        当vue中发生路由跳转时 ，如果跳转到同一个路由，路由未发生变化，只是参数不同，
+        这时路由并不会自动重新加载，其中的数据并不会发生更新，网页不会产生变化，只能手动刷新
+
+        1、使用watch属性
+
+            watch：{
+                $route(to,from){
+                    console.log(this.$route)
+                }
+            }
+            
+        2、在router-view上加key值
+
+            在该路由要渲染进的router-view上加   :key="$route.fullPath"   属性
+
+            <router-view :key="$route.fullPath"></router-view>
+    
+    -->
+</body>
+
+</html>

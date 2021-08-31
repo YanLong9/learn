@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+   
+        assets文件夹        放置静态资源,如需要引入的外部css、js、image
+        router文件夹        只放置index.js，用来引入vue实例对象、VueRouter模块、引入views文件夹中的路由对象，
+                            进行路由注册，导出router这一VueRouter实例对象
+        components文件夹     用来存放组件文件，导出组件
+        views文件夹         用来存放路由对象，导出路由对象，其中的路由文件中可以引用components文件夹中的组件
+
+     -->
+    <!-- 
+
+        1、style
+
+            Add "scoped" attribute to limit CSS to this component only 
+            在style标签上添加scoped属性时，代表这些css样式只在当前组件内有效 
+            在style标签上添加lang属性，代表style中使用的是何种语言，如：css、scss、less 
+
+        2、引入组件或其他引入时
+
+                @ is an alias to /src
+                路径中的@代指src文件夹
+
+        3、引入组件
+
+                在script标签的最上方
+                import 变量名 from "路径"
+                import HelloWorld from '@/components/HelloWorld.vue'
+
+        4、注册组件
+                
+                在需要用到该组件的路由或组件文件中，先引入，然后在文件的导出对象的components属性中
+                components: {
+                    HelloWorld
+                }
+
+        5、template
+
+                每个路由或组件文件中的template标签中最好只有一个根元素，给每个根元素都加上一个独一无二的id，
+                整个项目中不要出现id重复事件
+
+        6、router文件夹的index.js文件
+
+                该文件负责路由的注册
+
+                首先引入vue实例对象                   import Vue from 'vue' 
+
+                借着引入vue-router模块                import VueRouter from 'vue-router' 
+
+                然后依次引入需要注册的路由文件         import index from '../views/index.vue'
+
+                使用VueRouter                        Vue.use(VueRouter) 
+
+                创建一个routes变量，用来路由注册       const routes=[{},{}]
+
+                实例化vue-router                      const router = new VueRouter({routes})
+
+                导出vue-router实例对象                export default router 
+
+        7、APP.vue文件
+
+                相当于我们实例化的vue对象所控制的根元素，及其本身的css样式
+
+        8、main.js文件
+
+                相当于我们index.html文件的script部分，上述所有都会直接间接的在这里进行组装集合
+
+                首先引入vue实例对象                       import Vue from 'vue'
+
+                借着引入APP.vue文件                       import App from './App.vue'
+
+                引入我们的路由对象router                  import router from './router' 
+
+                引入一些全局的css样式                     import "@/assets/css/bootstrap.css"
+                
+                引入一些全局的node模块，挂载为vue的方法     
+
+                            import axios from 'axios' //引入axios模块
+                            Vue.prototype.$axios = axios //将axios模块挂载在vue原型上，变成vue的一个方法
+
+                Vue.config.productionTip = false
+
+                new Vue({ //实例化vue对象
+                    router,
+                    render: h => h(App)
+                }).$mount('#app')
+
+                vm.$mount("#app")===el:"#app"   都是用来将为vue实例对象提供挂载点，两者区别不清晰
+
+                项目中的挂载点指的是index.html中的   <div id="app"></div>
+
+      -->
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+</head>
+
+<body>
+    <!-- 
+        路由嵌套 也就是子路由  原理是router-view之间的结构嵌套 和路由的children属性
+        使用路由的children属性，定义该路由的子路由
+        同一级路由渲染到同一个router-view中，一个router-view对应多个路由
+     -->
+    <!-- 
+            要注意，以 / 开头的嵌套路径会被当作根路径。 这让你充分的使用嵌套组件而无须设置嵌套的路径。
+
+      -->
+    <div id="app">
+        <router-view></router-view>
+    </div>
+    <script>
+        var def = {
+            template: `<div>
+                            <p>这里是默认路径</p>  
+                            <router-view></router-view>
+                            <ul>
+                                <router-link tag="li" to="/index">首页</router-link>
+                                <router-link tag="li" to="/discover">发现</router-link>
+                                <router-link tag="li" to="/order">订单</router-link>
+                                <router-link tag="li" to="/user">我的</router-link>
+                            </ul>
+                        </div>`
+        }
+        var coinGold = {
+            template: `<div>
+                           <p>金币商城</p>
+                        </div>`
+        }
+        var index = {
+            template: `<div>
+                       <p>这里是首页</p>
+                    </div>`
+        }
+        var discover = {
+            template: `<div>
+                       <p>这里是发现</p>
+                    </div>`
+        }
+        var order = {
+            template: `<div>
+                       <p>这里是订单</p>
+                    </div>`
+        }
+        var user = {
+            template: `<div>
+                       <p>这里是我的</p>
+                       <router-link tag="p" to="/coinGold">金币商城</router-link>
+                    </div>`
+        }
+        var routes = [{
+            path: "/",
+            name: "def",
+            component: def,
+            children: [{
+                path: "index",
+                name: "index",
+                component: index
+            }, {
+                path: "discover",
+                name: "discover",
+                component: discover
+            }, {
+                path: "order",
+                name: "order",
+                component: order
+            }, {
+                path: "user",
+                name: "user",
+                component: user
+            }]
+        }, {
+            path: "/coinGold",
+            name: "coinGold",
+            component: coinGold
+        }]
+
+        const router = new VueRouter({
+            routes
+        })
+
+        var app = new Vue({
+            el: "#app",
+            router
+        })
+    </script>
+
+</body>
+
+</html>

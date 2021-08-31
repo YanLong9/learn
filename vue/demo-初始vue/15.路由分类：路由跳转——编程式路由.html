@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <router-view></router-view>
+        <nav>
+            <!-- 
+                编程式路由 使用事件进行跳转 
+                
+                    this.$router.push({})      会留下跳转记录
+
+                                                这个方法会向 history 栈添加一个新的记录，当用户点击浏览器后退按钮时，则回到之前的 URL。
+                                                当你点击 <router-link> 时，这个方法会在内部调用，
+                                                所以说，点击 <router-link :to="..."> 等同于调用 router.push(...)。
+
+                    this.$router.replace({})   不会留下跳转记录
+
+                                                它不会向 history 添加新记录，而是跟它的方法名一样，替换掉当前的 history 记录。
+                                                所以说，点击 <router-link :to="..." replace>等同于调用router.replace(...)
+
+                    可以使用路由注册的路径来进行跳转，也可以使用路由注册的name进行跳转
+            -->
+            <p @click="goPage(1)">首页</p>
+            <p @click="goPage(2)">发现</p>
+            <p @click="goPage(3)">订单</p>
+            <p @click="goPage(4)">我的</p>
+        </nav>
+    </div>
+    <script>
+        // 路由模板
+        var index = {
+            template: `<div>这里是首页</div>`
+        }
+        var discover = {
+            template: `<div>这里是发现</div>`
+        }
+        var order = {
+            template: `<div>这里是订单</div>`
+        }
+        var user = {
+            template: `<div>这里是我的</div>`
+        }
+
+        //路由注册
+        var routes = [{
+            path: "/",
+            name: "index",
+            component: index
+        }, {
+            path: "/discover",
+            name: "discover",
+            component: discover
+        }, {
+            path: "/order",
+            name: "order",
+            component: order
+        }, {
+            path: "/user",
+            name: "user",
+            component: user
+        }]
+
+        //实例化路由对象
+        const router = new VueRouter({
+            routes
+        })
+        var app = new Vue({
+            el: "#app",
+            router,
+            methods: {
+                goPage(ind) {
+                    switch (ind) {
+                        case 1:
+                            // 使用push跳转
+                            // this.$router.push({
+                            //     path: "/"
+                            // })
+
+                            // 使用replace跳转
+                            this.$router.replace({
+                                path: "/"
+                            })
+                            break;
+                        case 2:
+                            // 使用push跳转
+                            // this.$router.push({
+                            //     path: "/discover"
+                            // })
+
+                            // 使用replace跳转
+                            this.$router.replace({
+                                path: "/discover"
+                            })
+                            break;
+                        case 3:
+                            // 使用push跳转
+                            // this.$router.push({
+                            //     path: "/order"
+                            // })
+
+                            // 使用replace跳转
+                            this.$router.replace({
+                                path: "/order"
+                            })
+                            break;
+                        case 4:
+                            // 使用push跳转
+                            // this.$router.push({
+                            //     path: "/user"
+                            // })
+
+                            // 使用replace跳转
+                            this.$router.replace({
+                                path: "/user"
+                            })
+                            break;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

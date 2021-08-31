@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var CQueue = function () {
+      this.stackA = [];
+      this.stackB = [];
+    };
+
+    CQueue.prototype.appendTail = function (value) {
+      this.stackA.push(value);
+    };
+
+    CQueue.prototype.deleteHead = function () {
+      if (this.stackB.length) {
+        return this.stackB.pop();
+      } else {
+        while (this.stackA.length) {
+          this.stackB.push(this.stackA.pop());
+        }
+        if (!this.stackB.length) {
+          return -1;
+        } else {
+          return this.stackB.pop();
+        }
+      }
+    };
+    var test1=new CQueue()
+    test1.appendTail(1)
+    test1.appendTail(2)
+    test1.appendTail(3)
+    test1.appendTail(4)
+    test1.appendTail(5)
+    console.log(test1.stackA)
+    console.log(test1.stackA.length)
+    console.log(test1.stackB)
+    console.log(test1.stackB.length)
+    console.log(test1.deleteHead())
+    console.log(test1.deleteHead())
+    console.log(test1.deleteHead())
+    console.log(test1.deleteHead())
+    console.log(test1.deleteHead())
+  </script>
+</body>
+
+</html>

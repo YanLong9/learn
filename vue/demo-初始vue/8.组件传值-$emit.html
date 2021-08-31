@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <house :name="name" :bed-name="bedName"></house>
+    </div>
+    <script>
+        var house = {
+            props: ["name", "bedName"],
+            data() {
+                return {
+                    firstName: "这是一个",
+                    arr: [],
+                    str: ""
+                }
+            },
+            template: `<div>{{name}}
+                            <bedRoom @send:Msg="getMsg" :bed-name="bedName" :first-name="firstName"></bedRoom>
+                            <p>{{str}}</p>
+                            <ul>
+                                <li v-for="(item,index) in arr">{{item}}</li>                            
+                            </ul>
+                        </div>`,
+            methods: {
+
+                /*
+                在父组件的模板中的子组件标签上接受映射过来的事件，然后将事件传递给父组件中的一个事件，
+                父组件的这个事件的参数就是接受到的数据
+                */
+                getMsg: function(arr, str) {
+
+                    console.log(this.arr)
+                    console.log(this.str)
+                    this.arr = arr
+                    this.str = str
+                    console.log(this.arr)
+                    console.log(this.str)
+
+                }
+            }
+        }
+        Vue.component("house", house)
+
+
+        var bedRoom = {
+            props: ["bedName", "firstName"],
+            data() {
+                return {
+                    arr: [1, 2, 3, 4, 5, 6],
+                    str: "这是我的房子"
+                }
+            },
+            template: `<div @click="sendMsg">{{firstName}}{{bedName}}</div>`,
+            methods: {
+
+                sendMsg: function() {
+
+                    //使用该方法向父组件传递数据，第一个参数是映射的事件名称，从第二个参数开始是传递的数据
+                    this.$emit("send:Msg", this.arr, this.str)
+                }
+
+            }
+        }
+        Vue.component("bedRoom", bedRoom)
+
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                name: "这是一个房子",
+                bedName: "卧室"
+            }
+        })
+    </script>
+</body>
+
+</html>

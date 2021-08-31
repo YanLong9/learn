@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <style>
+        nav {
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        nav div {
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        组件路由守卫     不可在注册组件中使用，在注册组件中请使用生命周期函数
+                        只能在路由级组件中使用
+
+            beforeRouteEnter (to, from, next) {
+                在渲染该组件的对应路由被 confirm 前调用
+                不！能！获取组件实例 `this`，因为当守卫执行前，组件实例还没被创建
+            },
+           
+            beforeRouteLeave (to, from, next) {
+                导航离开该组件的对应路由时调用
+                可以访问组件实例 `this`
+            },
+
+            beforeRouteUpdate (to, from, next) {
+                在当前路由改变，但是该组件被复用时调用
+                举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+                由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+                可以访问组件实例 `this`
+            }
+        
+    -->
+    <div id="app">
+        <router-view></router-view>
+    </div>
+    <script>
+        var def = {
+            template: `<div>
+                            <p>这里是默认路径</p>  
+                            <router-view></router-view>
+                            <ul>
+                                <router-link tag="li" to="/index">首页</router-link>
+                                <router-link tag="li" to="/discover">发现</router-link>
+                                <router-link tag="li" to="/order">订单</router-link>
+                                <router-link tag="li" to="/user">我的</router-link>
+                            </ul>
+                        </div>`
+        }
+        var coinGold = {
+            template: `<div>
+                           <p>金币商城</p>
+                        </div>`
+        }
+        var index = {
+            template: `<div>
+                       <p>这里是首页</p>
+                    </div>`
+        }
+        var discover = {
+            template: `<div>
+                       <p>这里是发现</p>
+                    </div>`
+        }
+        var order = {
+            template: `<div>
+                       <p>这里是订单</p>
+                    </div>`
+        }
+        var user = {
+            template: `<div>
+                       <p>这里是我的</p>
+                       <router-link tag="p" to="/coinGold">金币商城</router-link>
+                    </div>`,
+            beforeRouteEnter(to, from, next) {
+                console.log(1)
+                console.log(to)
+                console.log(from)
+                console.log(next)
+                console.log(this)
+                next(app => {
+                    console.log(app) //这里是该路由组件对象
+                })
+
+                // 在渲染该组件的对应路由被 confirm 前调用
+                // 不！能！获取组件实例 `this`,因为当守卫执行前，组件实例还没被创建
+            },
+            beforeRouteUpdate(to, from, next) {
+                console.log(2)
+                console.log(to)
+                console.log(from)
+                console.log(next)
+                next()
+
+                // 在当前路由改变，但是该组件被复用时调用
+                // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+                // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+                // 可以访问组件实例 `this`
+            },
+            beforeRouteLeave(to, from, next) {
+                console.log(3)
+                console.log(to)
+                console.log(from)
+                console.log(next)
+                next()
+
+                // 导航离开该组件的对应路由时调用
+                // 可以访问组件实例 `this`
+            },
+            beforeCreate() {
+                console.log('进入beforeCreate')
+            },
+            created() {
+                console.log('进入created')
+            }
+        }
+        var routes = [{
+            path: "/",
+            name: "def",
+            component: def,
+            children: [{
+                path: "index",
+                name: "index",
+                component: index
+            }, {
+                path: "discover",
+                name: "discover",
+                component: discover
+            }, {
+                path: "order",
+                name: "order",
+                component: order
+            }, {
+                path: "user",
+                name: "user",
+                component: user
+            }]
+        }, {
+            path: "/coinGold",
+            name: "coinGold",
+            component: coinGold
+        }]
+
+        const router = new VueRouter({
+            routes
+        })
+
+        var app = new Vue({
+            el: "#app",
+            router
+        })
+    </script>
+
+
+</body>
+
+</html>

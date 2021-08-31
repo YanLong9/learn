@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 
+            将插槽写在组件中，template标签写在组件中，slot标签写在组件模板中
+
+            插槽的作用是为封装的组件留余地，在组建中写入插槽后我们可以在复用组件时，
+            根据情况不同，来在插槽中写入不同的内容，来增加同一个组件的可复用性
+         -->
+        <house>
+            这是一个父组件
+            <hr> {{girl}}
+            <hr> {{girl1}}
+            <hr> {{girl2}}
+            <hr>
+            <!--这里可以直接放置内容、元素、其他组件，或者任意混合  -->
+            <!-- 组件标签中的内容如果没有被一个template标签包裹，则这些内容则会被默认为是默认插槽需要渲染的内容 -->
+        </house>
+    </div>
+    <script>
+        ;
+        /*
+            如果 组件中 没有包含一个 <slot> 元素，则该组件起始标签和结束标签之间的任何内容都会被抛弃。
+            父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的。
+        */
+        Vue.component("house", {
+            data() {
+                return {
+                    girl1: "梅花十三",
+                    girl2: "梅花十一"
+                }
+            },
+            template: `<div>
+                            <slot></slot>
+                            <hr>
+                            <bashroom>
+                                这是一个子组件
+                                <hr>
+                                {{girl1}}
+                                <hr>
+                                {{girl2}}
+                                <hr>
+                                {{boy1}}
+                                <hr>
+                                {{boy2}}
+                                <hr>
+                                {{boy3}}
+                            </bashroom>
+                        </div>`
+        })
+        Vue.component("bashroom", {
+            data() {
+                return {
+                    boy1: "伍六七",
+                    boy2: "鸡大宝",
+                    boy3: "鸡小飞"
+                }
+            },
+            template: `<div>
+                            <slot></slot>
+                        </div>`
+        })
+        var app = new Vue({
+            el: "#app",
+            data: {
+                girl: "江主任"
+            }
+        })
+    </script>
+</body>
+
+</html>

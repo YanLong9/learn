@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <house1></house1>
+        <house2></house2>
+    </div>
+    <script>
+        //首先实例化出来一个vue实例化对象用来非父子组件传递信息
+        var bus = new Vue()
+
+        var house1 = {
+            template: `<div>这是一个房子</div>`,
+            created() {
+
+                //使用bus实例化对象来接收传递过来的信息
+                //第一个参数是传递过来的事件名，第二个参数是回调函数，回调函数的参数是传递过来的信息
+                bus.$on("send:Msg", function(str, arr) {
+                    console.log(str)
+                    console.log(arr)
+                })
+            }
+        }
+        Vue.component("house1", house1)
+
+        var house2 = {
+            template: `<div @click="sendMsg">这也是一个房子</div>`,
+            data() {
+                return {
+                    msg: "传递的信息",
+                    arr: [1, 2, 3, 4, 5, 6]
+                }
+            },
+            methods: {
+                sendMsg() {
+                    //使用实例化出来的bus实例对象来进行传值
+                    //第一个参数是传递过去的事件名，从第二个参数开始是传递的信息
+                    bus.$emit("send:Msg", this.msg, this.arr)
+                }
+            }
+        }
+        Vue.component("house2", house2)
+
+        var app = new Vue({
+            el: "#app"
+        })
+    </script>
+</body>
+
+</html>

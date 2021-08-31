@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <test :text="app_text" :app-word="app_word"></test>
+        <market :name="no_define"></market>
+    </div>
+
+
+    <script>
+        ;
+        /*
+
+        props命名规则：
+
+            因为html中的attribute名是大小写不敏感的，所以浏览器会把所有的大写字符解释为小写字符
+
+            所以在vue注册组件中，prop中的变量名以驼峰命名法命名的在html中要以kebab-case（短横线分隔命名）
+        
+        */
+
+        /*
+
+            根组件中data是一个对象；子组件中data是一个函数返回一个对象
+
+            props中可传入  字符串，数字，布尔值，数组，对象......
+
+        */
+
+        /*
+            props的值，可以写作数组，也可以写作对象
+
+            数组
+                props:["text","word","letter"]
+
+            对象
+                在该种情况下我们可以规定该变量必须是什么类型的，哪一个变量是必须传的，哪一个不是必须传，以及给该变量设定默认值
+
+                在该种情况下，type的值可以为[String,Number,Boolean,Array,Object,Date,Function,Symbol]
+
+                null和undefined会通过任何类型的验证
+        */
+
+        //props数组
+        Vue.component("test", {
+            props: ["text", "appWord"],
+            data() {
+                return {
+                    name: "加拉哈德"
+                }
+            },
+            template: "<p>{{name}}:{{text}};{{appWord}}</p>"
+        })
+
+        //props对象
+        Vue.component("market", {
+            props: {
+                name: String, //必须为字符串类型
+                amount: [Number, String], //可以为字符串，也可以为数字
+                price: {
+                    type: Number, //类型必须为数字
+                    required: true //该值必须传，不传会报错
+                },
+                sort: {
+                    type: String, //类型必须为字符串
+                    default: "all" //默认值为“all”
+                },
+                totalPrice: {
+                    type: Object, //类型必须为对象
+                    default: function() { //这时设置默认值需要用函数来返回一个对象
+                        return {
+                            name: "蘑菇蛋",
+                            amount: 100,
+                            price: 100,
+                            total: 10000
+                        }
+                    }
+                }
+            },
+            template: `<div>{{name}}:{{sort}}</div>`
+        })
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                app_text: "仅以此胜为凭，真理在我！",
+                app_word: "愿天佑吾国，吾皇佑我！",
+                no_define: undefined
+            }
+        })
+    </script>
+</body>
+
+</html>

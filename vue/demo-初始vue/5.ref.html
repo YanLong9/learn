@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p id="text" ref="text" @click="changeColor">{{text}}</p>
+    </div>
+
+    <script>
+        // ref是vue框架中的操作dom的一个方法，但是并不推荐使用，因为vue框架采用了数据驱动的方式，应尽量避免直接操作dom
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                text: "这是一段文字"
+            },
+            methods: {
+                changeColor: function() {
+                    // var word = document.getElementById("text")
+                    // word.style.color = "blue"
+                    console.log(this)
+                    console.log(this.$refs)
+                    this.$refs.text.style.color = "red"
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

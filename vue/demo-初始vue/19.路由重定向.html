@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+</head>
+
+<body>
+    <!-- 
+        路由重定向   路由的redirect属性 定义当跳转到该路由时，实际将会跳转到另一个路由页面
+        其可以定义使用路径跳转还是name跳转，传参是采用query还是params
+        可以解决页面首次加载问题
+     -->
+
+    <div id="app">
+        <router-view></router-view>
+    </div>
+    <script>
+        var def = {
+            template: `<div>
+                            <p>这里是默认路径</p>  
+                            <router-view></router-view>
+                            <ul>
+                                <router-link tag="li" to="/index">首页</router-link>
+                                <router-link tag="li" to="/discover">发现</router-link>
+                                <router-link tag="li" to="/order">订单</router-link>
+                                <router-link tag="li" to="/user">我的</router-link>
+                            </ul>
+                        </div>`
+        }
+        var coinGold = {
+            template: `<div>
+                           <p>金币商城</p>
+                        </div>`
+        }
+        var index = {
+            template: `<div>
+                       <p>这里是首页</p>
+                    </div>`
+        }
+        var discover = {
+            template: `<div>
+                       <p>这里是发现</p>
+                    </div>`
+        }
+        var order = {
+            template: `<div>
+                       <p>这里是订单</p>
+                    </div>`
+        }
+        var user = {
+            template: `<div>
+                       <p>这里是我的</p>
+                       <router-link tag="p" to="/coinGold">金币商城</router-link>
+                    </div>`
+        }
+        var routes = [{
+            path: "/",
+            name: "def",
+            // redirect: "/index",//默认采用路径跳转，采用params传参
+            redirect: { //当使用对象时我们可以定义是采用路径跳转，或name跳转，以及传参方式query或者params
+                name: "index"
+            },
+            component: def,
+            children: [{
+                path: "index",
+                name: "index",
+                component: index
+            }, {
+                path: "discover",
+                name: "discover",
+                component: discover
+            }, {
+                path: "order",
+                name: "order",
+                component: order
+            }, {
+                path: "user",
+                name: "user",
+                component: user
+            }]
+        }, {
+            path: "/coinGold",
+            name: "coinGold",
+            component: coinGold
+        }]
+
+        const router = new VueRouter({
+            routes
+        })
+
+        var app = new Vue({
+            el: "#app",
+            router
+        })
+    </script>
+
+</body>
+
+</html>

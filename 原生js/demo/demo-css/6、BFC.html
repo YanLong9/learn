@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- alt+z  不换行折行快捷键 -->
+    <!-- 
+        BFC   Block Formatting Contexts 块级元素格式化上下文
+
+            概念：Formatting Contexts是页面中的一块渲染区域，他拥有一套渲染规则，
+                决定其子元素将如何布局定位，以及和其他区元素的关系和相互作用。
+                说白了就是一个决定容器元素本身、及内部子元素的渲染规则。
+
+            触发条件：
+
+                    1.根元素（html）
+                    2.float属性不为none
+                    3.position为absolute或fixed
+                    4.display为inline-block；flex；table-cell；table-caption；inline-flex
+                    5.overflow不为visible
+
+            规则：
+
+                    1、BFC就是页面上一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。
+
+                    2、内部的块级子元素会在垂直方向，一个接一个的位置放置。（废话，没有触发BFC，也会这样）
+
+                    3、块级元素垂直方向的距离由margin决定。同一个BFC容器内的相邻块级元素的margin会发生重叠。
+                       属于同一个BFC的两个相邻box的margin会发生重叠，按照最大值重叠设置。
+
+                    4、BFC区域不会与float元素重叠。（解决浮动元素会覆盖同级不浮动元素，但不会遮盖内容的问题）
+
+                    5、计算BFC容器的高度是，浮动元素也参与计算。（解决元素浮动后，父元素高度坍塌的问题）
+
+                    6、对于从左向右的格式化，每个元素的左边缘，与包含块的左边缘相接触，从右向左的格式化则相反
+                       即使包含块中的元素存在浮动也是如此，除非其中元素再生一个BFC区域
+
+
+            包含块：包含块并不是一个完整的box，一个完整的box区域包含margin包含块、border包含块、padding包含块、content包含块，
+                    一个元素的包含块可能是box的padding包含块，也可能是content包含块，取决于元素的position属性
+
+            例如：元素position:absolute; 他的包含块就是最近的position不是static的元素的padding包含块
+                  元素position:static/relative,他的包含块就是父级元素的padding包含块组成
+                  元素position:fixed,他的包含块就是视口
+
+            所以BFC元素中的子级元素，应该与其本身的包含块相接触，而非是与BFC相接触，
+            这个包含块可能是BFC的一部分，也可能与BFC无关
+            
+            元素H触发生成BFC，其中有两个元素A和元素B，
+            元素A的float的属性为left，那么元素A的左边缘和元素H（也是元素A的包含块）左边缘接触，
+            如果元素B的float的属性也为left，元素B的左边缘不和元素H的左边缘接触，而是和元素A的右边缘接触。
+            这种情况就可以用规则中的“即使包含块中的元素存在浮动也是如此，除非其中元素再生成一个BFC”来解释，
+            元素的float的属性不为none会触发生成BFC，所以这种情况是不矛盾的。
+                    
+                    
+    -->
+</body>
+
+</html>

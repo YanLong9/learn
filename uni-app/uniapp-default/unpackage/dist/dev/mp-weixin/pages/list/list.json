@@ -1,0 +1,14 @@
+{
+  "navigationBarBackgroundColor": "#000",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "list",
+  "navigationStyle": "default",
+  "transparentTitle": "always",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#fff",
+  "backgroundTextStyle": "dark",
+  "disableScroll": false,
+  "backgroundColorTop": "#191970",
+  "backgroundColorBottom": "#2F4F4F",
+  "usingComponents": {}
+}

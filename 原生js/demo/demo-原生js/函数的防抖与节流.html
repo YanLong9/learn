@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #content {
+            height: 100%;
+            line-height: 100%;
+            text-align: center;
+            color: #fff;
+            background-color: #ccc;
+            font-size: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content"></div>
+    <!-- 
+        防抖：触发了一次函数之后，必须间隔n秒，且在n秒内不再触发该函数，才能第二次触发该函数
+
+        节流：触发了一次函数之后，必须间隔n秒，才能触发第二次该函数，n秒之内是否再次尝试触发该函数都会无效
+     -->
+    <!-- 
+        防抖：短时间内多次触发同一事件，只执行最后一次，或者只执行最开始的一次，中间的不执行。
+
+            理解为，连续的触发一个事件函数，只会执行一次，执行开始的那一次，或者结束的那一次
+
+        节流：指连续触发事件但是在 n 秒中只执行一次函数。即 2n 秒内执行 2 次... 。节流如字面意思，会稀释函数的执行频率。
+
+            理解为，连续的触发一个事件函数，会多次执行，但是执行的频率会被稀释，
+                    在单位时间内，只会执行一次，过了单位时间后，下一个单位时间内，也是只会会执行一次，
+                    会限制该事件函数的执行频率，例如每十秒内执行一次
+     -->
+</body>
+<script>
+    //未有节流与防抖处理的普通函数
+    let num = 1;
+    let content = document.getElementById('content');
+
+    function count() {
+        content.innerHTML = num++;
+    };
+    // content.onmousemove = count;
+
+    // 防抖处理  非立即执行版
+    // 触发事件后函数不会立即执行，而是在 n 秒后执行，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。效果如下：
+    function debounce(func, wait) {
+        let timer;
+        return function () {
+            let context = this; // 注意 this 指向
+            let args = arguments; // arguments中存着e
+
+            if (timer) clearTimeout(timer);
+
+            timer = setTimeout(() => {
+                func.apply(this, args)
+            }, wait)
+        }
+    }
+
+    // 立即执行版
+    // 触发事件后函数会立即执行，然后 n 秒内不触发事件才能继续执行函数的效果。用法同上，效果如下：
+    function debounce(func, wait) {
+        let timer;
+        return function () {
+            let context = this; // 这边的 this 指向谁?
+            let args = arguments; // arguments中存着e
+
+            if (timer) clearTimeout(timer); //timer false 不执行//timer为true，执行
+
+            let callNow = !timer; //true//false
+
+            timer = setTimeout(() => {
+                timer = null;
+            }, wait) //1000 后 执行该函数//1000后，执行该函数
+
+            if (callNow) func.apply(context, args); //callNow为true ，执行//callNow为false，不执行
+        }
+    }
+
+
+    //节流 
+    // 时间戳版  立即执行版
+    function throttle(func, wait) {
+        let previous = 0;
+        return function () {
+            let now = Date.now();
+            let context = this;
+            let args = arguments;
+            if (now - previous > wait) {
+                func.apply(context, args);
+                previous = now;
+            }
+        }
+    }
+
+    // 定时器版 非立即执行版
+    function throttle(func, wait) {
+        let timeout;
+        return function () {
+            let context = this; 
+            let args = arguments;
+            if (!timeout) {
+                timeout = setTimeout(() => {
+                    timeout = null;
+                    func.apply(context, args)
+                }, wait)
+            }
+        }
+    }
+    content.onmousemove = throttle(count, 1000);
+</script>
+
+</html>

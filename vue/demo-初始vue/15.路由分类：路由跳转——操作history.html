@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <router-view></router-view>
+        <nav>
+            <!-- 
+                路由跳转使用push 的时候会留下一个跳转记录
+
+                    this.$router.back() 也是一个历史回退
+
+                    在浏览器记录中前进一步，等同于 history.forward()
+                    this.$router.go(1)
+
+                    后退一步记录，等同于 history.back()
+                    this.$router.go(-1)
+
+                    刷新页面，等同于 history.go(0)
+                    this.$router.go(0)
+
+
+                    前进 3 步记录
+                    this.$router.go(3)
+
+                    如果 history 记录不够用，那就默默地失败呗
+                    this.$router.go(-100)
+                    this.$router.go(100)
+
+                如果使用的是replace那么不会保留历史记录 也就不能使用go back这些方法
+                
+            -->
+            <p @click="goPage(1)">首页</p>
+            <p @click="goPage(2)">发现</p>
+            <p @click="goPage(3)">订单</p>
+            <p @click="goPage(4)">我的</p>
+            <button @click="nextHistory()">上一页</button>
+            <button @click="refresh">刷新</button>
+            <button @click="lastHistory()">下一页</button>
+
+        </nav>
+    </div>
+    <script>
+        // 路由模板
+        var index = {
+            template: `<div>这里是首页</div>`
+        }
+        var discover = {
+            template: `<div>这里是发现</div>`
+        }
+        var order = {
+            template: `<div>这里是订单</div>`
+        }
+        var user = {
+            template: `<div>这里是我的</div>`
+        }
+
+        //路由注册
+        var routes = [{
+            path: "/",
+            name: "index",
+            component: index
+        }, {
+            path: "/discover",
+            name: "discover",
+            component: discover
+        }, {
+            path: "/order",
+            name: "order",
+            component: order
+        }, {
+            path: "/user",
+            name: "user",
+            component: user
+        }]
+
+        //实例化路由对象
+        const router = new VueRouter({
+            routes
+        })
+        var app = new Vue({
+            el: "#app",
+            router,
+            methods: {
+                nextHistory() {
+                    // 前进一页
+                    // this.$router.go(1);
+                    history.forward()
+
+
+                },
+                lastHistory() {
+                    // 后退一页
+                    this.$router.go(-1);
+                    // history.back()
+                },
+                refresh() {
+                    // 刷新页面
+                    this.$router.go(0);
+                    // history.go(0)
+                },
+                goPage(ind) {
+                    switch (ind) {
+                        case 1:
+                            this.$router.push({
+                                path: "/"
+                            })
+                            break;
+                        case 2:
+                            this.$router.push({
+                                path: "/discover"
+                            })
+                            break;
+                        case 3:
+                            this.$router.push({
+                                path: "/order"
+                            })
+                            break;
+                        case 4:
+                            this.$router.push({
+                                path: "/user"
+                            })
+                            break;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

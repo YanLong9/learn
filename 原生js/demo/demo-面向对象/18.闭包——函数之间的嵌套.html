@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        ;
+        /*
+            这样我们就可以做到，在一个作用域中访问并操作到另一个作用域中的变量，
+            即使该变量和本作用域中的变量同名，也不会影响到本作用域中的变量
+
+            也就是在一个作用域中对另一个作用域操作，两个作用域之间却互不干扰。
+        
+        */
+        var num = 100;
+
+        function parent() {
+            var num = 10;
+
+            function child() {
+                num++;
+                console.log(num)
+            }
+
+            return child
+        }
+
+        function parent1() {
+            var num = 1
+
+            var c = parent()
+            console.log(c) //child函数
+            c() //11
+
+            console.log(num) //1
+        }
+
+        parent1()
+    </script>
+</body>
+
+</html>

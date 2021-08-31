@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 路由就是页面级的组件，使用多个组件来组成一个路由页面，使用多个路由来组成一个单页面应用 -->
+        <router-view></router-view>
+        <!-- 路由会被渲染进这里 -->
+        <nav>
+            <router-link to="/">首页</router-link>
+            <!--这里写路由跳转  -->
+            <router-link to="/discover">发现</router-link>
+            <router-link to="/order">订单</router-link>
+            <router-link to="/user">我的</router-link>
+        </nav>
+    </div>
+    <script>
+        //这些页面级组件————路由不用注册
+        // 这里定义路由模板
+        var index = {
+            template: `<div>这里是首页</div>`
+        }
+        var discover = {
+            template: `<div>这里是发现</div>`
+        }
+        var order = {
+            template: `<div>这里是订单</div>`
+        }
+        var user = {
+            template: `<div>这里是用户</div>`
+        }
+
+        // 在这里进行路由的注册
+        var routes = [{
+            path: "/", //路由的地址————必须
+            name: "index", //路由的别名————非必须
+            component: index //注册路由————必须
+        }, {
+            path: "/discover",
+            name: "discover",
+            component: discover
+        }, {
+            path: "/order",
+            name: "order",
+            component: order
+        }, {
+            path: "/user",
+            name: "user",
+            component: user
+        }]
+
+        // 实例化路由对象
+        const router = new VueRouter({
+            routes
+        })
+
+
+        var app = new Vue({
+            el: "#app",
+            router
+        })
+    </script>
+</body>
+
+</html>

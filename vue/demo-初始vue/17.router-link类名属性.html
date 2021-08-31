@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+</head>
+
+<body>
+    <!--active-class       的默认值是： router-link-active   默认查询为模糊查询  
+        是  以  除当前选中对象外其余所有对象  的  路径整体  为查询对象，
+        与当前被选中对象的路径进行匹配，只要当前路径中包含着被匹配路径整体，就匹配成功，类似于字符串的indexOf方法
+
+        exact-active-class 的默认值是： router-link-exact-active 默认查询为精确查询
+        是  以  除当前选中对象外其余所有对象  的  路径整体  为查询对象，
+        与当前被选中对象的路径进行匹配，被匹配路径整体必须与当前路径完全相等，才能匹配成功，类似于 == 方法
+        
+        exact              的默认值是： false   
+        该属性和 active-class属性一起使用时，可以使得active-class变成精确查询
+        
+    -->
+    <div id="app">
+        <router-view></router-view>
+        <router-link active-class="choosed" exact exact-active-class="exactChoosed" to="/index">首页</router-link>
+        <router-link active-class="choosed" exact exact-active-class="exactChoosed" to="/index/discover">发现</router-link>
+        <router-link active-class="choosed" exact exact-active-class="exactChoosed" to="/order">订单</router-link>
+        <router-link active-class="choosed" exact exact-active-class="exactChoosed" to="/user">我的</router-link>
+    </div>
+    <script>
+        // 路由模板
+        var index = {
+            template: `<div>
+                            <p>这里是首页</p>
+                        </div>`
+        }
+        var discover = {
+            template: `<div>这里是发现</div>`
+        }
+        var order = {
+            template: `<div>这里是订单</div>`
+        }
+        var user = {
+            template: `<div>这里是我的</div>`
+        }
+
+        //路由注册
+        var routes = [{
+            path: "/",
+            name: "index",
+            component: index
+        }, {
+            path: "/discover",
+            name: "discover",
+            component: discover
+        }, {
+            path: "/order",
+            name: "order",
+            component: order
+        }, {
+            path: "/user",
+            name: "user",
+            component: user
+        }]
+
+        //实例化路由对象
+        const router = new VueRouter({
+            routes
+        })
+        var app = new Vue({
+            el: "#app",
+            router
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <style>
+        nav {
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        nav div {
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        路由独享守卫   定义当跳转到该路由时所调用的独属于该路由的路由守卫，写在路由注册中，用法类似于全局前置守卫
+        
+        beforeEnter: (to, from, next) => {}
+                    to
+                    from
+                    next    该参数是一个函数，定义下一步该干什么 ，
+                            next()                  进行管道中的下一个钩子
+                            next(false)             中断此次路由跳转，进入from的路由对象页面
+                            next('/')
+                            next({path:"/"})        打断本次路由跳转，进入传入的路由对象，可以传递字符串或者对象，可以传参
+                            next(error): (2.4.0+)   如果传入 next 的参数是一个 Error 实例，
+                                                    则导航会被终止且该错误会被传递给 router.onError() 注册过的回调。
+                            
+                    注意事项：
+                            当定义了该路由守卫时，就必须在其中调用next参数，否则任何路由跳转都会失灵
+                            next中什么都不传，意味着可以进入本次路由跳转，
+                            如果想要传递路径，则必须传入不同于本次路由跳转路径的路径，
+                            否则就会再一次调用该守卫，进行同样的判断，进行同样的next，进入死循环
+
+    -->
+    <div id="app">
+        <router-view></router-view>
+        <nav>
+            <router-link tag="div" to="/zoo">动物园</router-link>
+            <router-link tag="div" to="/sallTicket">售票处</router-link>
+            <router-link tag="div" to="/lion">狮子区</router-link>
+            <router-link tag="div" to="/monkey">猴子区</router-link>
+            <router-link tag="div" to="/tiger">老虎区</router-link>
+        </nav>
+    </div>
+    <script>
+        var ticket = false;
+        var zoo = {
+            template: `<div>动物园</div>`
+        }
+        var sallTicket = {
+            template: `<div>售票处</div>`
+        }
+        var lion = {
+            template: `<div>九灵元圣</div>`
+        }
+        var monkey = {
+            template: `<div>齐天大圣</div>`
+        }
+        var tiger = {
+            template: `<div>虎力大仙</div>`
+        }
+
+
+        var routes = [{
+            path: "/zoo",
+            component: zoo
+        }, {
+            path: "/sallTicket",
+            component: sallTicket
+        }, {
+            path: "/lion",
+            component: lion
+        }, {
+            path: "/tiger",
+            component: tiger
+        }, {
+            path: "/monkey",
+            component: monkey,
+            beforeEnter: (to, from, next) => {
+                console.log(1)
+                console.log(to) //到哪里去
+                console.log(from) //从哪里来
+                console.log(next) //下一步干什么
+                if (ticket) {
+                    next()
+                } else {
+                    next("/sallTicket")
+                }
+            }
+        }, ]
+
+
+        const router = new VueRouter({
+            routes
+        })
+
+        var app = new Vue({
+            el: "#app",
+            router
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 如何在vue-cli3.x及以上版本中使用scss -->
+    <!-- 
+        1.安装依赖
+
+            npm install --save-dev node-sass;
+            npm install --save-dev sass-loader;
+
+        2.直接使用
+
+            <style lang = "scss" scoped>
+                $myRed:#ff0;
+                .top{
+                color:$myRed;
+                }
+            </style>
+
+        3.或者单独的scss文件，然后导入到需要用的地方
+
+            <style lang = "scss" scoped>
+                @import "../../common/scss/base";    （注意引入的层级关系）   
+                $myRed:#ff0;
+                .top{
+                color:$myRed;
+                }
+            </style>
+        
+        4.在 main.js 中引入 sass 文件；即：import   "./commonon/base.scss"
+     -->
+</body>
+
+</html>

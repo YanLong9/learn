@@ -1,0 +1,44 @@
+{
+  "description": "项目配置文件。",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": false
+  },
+  "compileType": "miniprogram",
+  "libVersion": "",
+  "appid": "wxfd90d633d84a8d8a",
+  "projectname": "uniapp-default",
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "current": -1,
+      "list": []
+    },
+    "miniprogram": {
+      "current": 1,
+      "list": [
+        {
+          "name": "详情页",
+          "query": "id=44",
+          "id": 0,
+          "pathName": "pages/detail/detail"
+        },
+        {
+          "name": "cssScss",
+          "query": "id=44",
+          "id": 1,
+          "pathName": "pages/cssScss/cssScss"
+        }
+      ]
+    }
+  }
+}

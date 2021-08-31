@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p @click="changeShow">changeShow</p>
+        <p @click="changeText">changeText</p>
+        <house v-if="show" :text="text"></house>
+    </div>
+    <script>
+        Vue.component("house", {
+            props: ["text"],
+            data() {
+                return {
+                    str: "这是一个测试"
+                }
+            },
+            methods: {
+                con() {
+                    console.log("函数测试")
+                }
+            },
+            template: "<div>{{text}}</div>",
+            beforeCreate: () => {
+                console.log("这是beforeCreated")
+                console.log(this.str)
+                console.log(this.text)
+                    // this.con()
+            },
+            created() {
+                console.log("这是created")
+                console.log(this.str)
+                this.con()
+                console.log(this.text)
+
+            },
+            beforeMount() {
+                console.log("这是beforeMount")
+                console.log(this.str)
+                this.con()
+                console.log(this.text)
+
+            },
+            mounted() {
+                console.log("这是mounted")
+                console.log(this.str)
+                this.con()
+                console.log(this.text)
+
+            },
+            beforeUpdate() {
+                console.log("这是beforeUpdate")
+                console.log(this.str)
+                this.con()
+                console.log(this.text)
+
+            },
+            updated() {
+                console.log("这是updated")
+                console.log(this.str)
+                this.con()
+                console.log(this.text)
+
+            },
+            beforeDestroy() {
+                console.log("这是beforeDestroy")
+                console.log(this.str)
+                this.con()
+                console.log(this.text)
+
+            },
+            destroyed() {
+                console.log("这是destroyed")
+                console.log(this.str)
+                this.con()
+                console.log(this.text)
+
+            }
+        })
+        var app = new Vue({
+            el: "#app",
+            data: {
+                show: true,
+                text: "这是一个房子",
+                str: "根组件测试"
+            },
+            methods: {
+                changeShow() {
+                    this.show = !this.show
+                },
+                changeText() {
+                    if (this.text == "这是一个房子") {
+                        this.text = "这不是一个房子"
+                    } else {
+                        this.text = "这是一个房子"
+                    }
+
+                }
+            },
+            // beforeCreate: () => {
+            //     console.log("这是beforeCreated")
+            //     console.log(this.str)
+            // },
+            // created() {
+            //     console.log("这是created")
+            //     console.log(this.str)
+            // },
+            // beforeMount() {
+            //     console.log("这是beforeMount")
+            //     console.log(this.str)
+            // },
+            // mounted() {
+            //     console.log("这是mounted")
+            //     console.log(this.str)
+            // },
+            // beforeUpdate() {
+            //     console.log("这是beforeUpdate")
+            //     console.log(this.str)
+            // },
+            // updated() {
+            //     console.log("这是updated")
+            //     console.log(this.str)
+            // },
+            // beforeDestroy() {
+            //     console.log("这是beforeDestroy")
+            //     console.log(this.str)
+            // },
+            // destroyed() {
+            //     console.log("这是destroyed")
+            //     console.log(this.str)
+            // }
+        })
+    </script>
+</body>
+
+</html>

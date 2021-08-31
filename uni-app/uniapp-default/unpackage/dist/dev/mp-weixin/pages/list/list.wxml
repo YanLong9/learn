@@ -1,0 +1,1 @@
+<view id="list" data-event-opts="{{[['tap',[['clickList',['$event']]]]]}}" bindtap="__e" class="data-v-7d5e07c6">{{'这里是list页面'+name+''}}<view class="box data-v-7d5e07c6"></view></view>

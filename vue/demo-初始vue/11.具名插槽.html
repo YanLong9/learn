@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>具名插槽</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <house>
+            <template v-slot:hasname>
+                <div>我是第二个有名字的杀手————梅花十三</div>
+            </template>
+            <template #hasname> 
+                <div>我是第三个有名字的杀手————梅花十一</div>
+            </template>
+            <template>
+                <div>我是一个么有名字的杀手</div>
+            </template>
+            <template v-slot:noname>
+                <div>我是一个有名字的杀手————伍六七</div>
+                <p>鸡大宝</p>
+            </template>
+        </house>
+    </div>
+    <script>
+        ;
+        /*
+        当被提供的内容只有默认插槽时，可以省略template标签，组件的标签才可以被当作插槽的模板来使用。这样我们就可以把v-slot 直接用在组件上
+
+        将插槽写在组件中，template标签写在组件中，slot标签写在组件模板中
+
+            slot的name属性与template的v-slot指令两者的值，不能使用驼峰、短划线写法，推荐使用全小写
+            slot的name属性与template的v-slot指令两者的值，默认为default
+            默认插槽对应的内容可以不包括在template标签中
+
+            template标签中的v-slot指令的值与slot中的name属性的值是对应关系，slot中会渲染对应template的内容
+            插槽渲染以组件模板中的slot标签顺序来创建dom，
+            组件中的template标签只是定义模板中slot对应的名字属性和其中要渲染的内容，也就是template标签的顺序不重要
+            也就是slot定义顺序，template定义内容
+
+            如果有多个具有相同v-slot值的template标签，其内容不同，在对应的slot中只会渲染最下面的那一个template，也就是template的层叠性
+            因为层叠性，template标签一个v-slot指令最终只会生成一个，但是模板中的slot标签却可以有多个同name属性的存在，也就是slot的可复用
+
+            template 中的v-slot指令可以缩写
+                v-slot:abc   ==>   #abc
+
+            template标签中可以放置内容、元素、组件，或者多者混合，
+            组件模板的slot标签中直接写内容在该slot标签没有对应的template时会被渲染出来，如果有则不会被渲染出来，也就是设置默认值
+
+            插槽的template标签中可以有多个根元素，但是组件的template模板中却只能有一个根元素
+
+        
+        */
+        var house = {
+            template: `<div>
+                            <p>这是一份名单</p>
+                            <slot></slot>
+                            <slot name="default">123</slot>
+                            <hr>
+                            <slot name="noname"></slot>
+                            <hr>
+                            <slot name="hasname"></slot>
+                            <hr>
+                            <slot name="hasname"></slot>
+                            <hr>
+                        </div>`
+        }
+        Vue.component("house", house)
+        var app = new Vue({
+            el: "#app"
+        })
+    </script>
+</body>
+
+</html>

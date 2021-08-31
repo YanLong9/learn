@@ -1,0 +1,87 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/list/list",
+			"style": { //页面设置将会覆盖掉全局设置
+				"navigationBarBackgroundColor": "#000",
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "list",
+				"navigationStyle": "default",
+				"transparentTitle": "always",
+				"enablePullDownRefresh": true,
+				"backgroundColor": "#fff",
+				"backgroundTextStyle": "dark",
+				"disableScroll": false, //是否禁止滚动，只支持微信和百度
+				"backgroundColorTop": "#191970", //仅支持ios平台//这个会覆盖掉微信小程序的backgroundColor
+				"backgroundColorBottom": "#2F4F4F", //仅支持ios平台
+				"h5": {
+					"pullToRefresh": {
+						"color": "#4B0082", //h5的下拉刷新圈圈颜色
+						"offset": "200px" //下拉刷新图标相对于页面顶部的偏移 
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/index/index"
+		},
+		{
+			"path": "pages/detail/detail"
+		},
+		{
+			"path": "pages/cssScss/cssScss"
+		}
+	],
+	"globalStyle": { //用于设置应用的状态栏、导航条、标题、窗口背景色等。
+		"navigationBarBackgroundColor": "#ccc", //设置导航栏和状态栏的背景色
+		"navigationBarTextStyle": "white", //导航栏标题以及状态栏的显示图标颜色
+		"navigationBarTitleText": "龙", //导航栏文本
+		"navigationStyle": "default", //导航栏样式，仅支持 default/custom。custom即取消默认的原生导航栏
+		"enablePullDownRefresh": true, //是否开启下拉刷新
+		"backgroundColor": "#000", //下拉显示出来的窗口的背景色,仅支持微信小程序
+		"backgroundTextStyle": "light", //下拉 loading 的样式，仅支持 dark / light，仅支持微信小程序
+		"titleImage": "./static/logo.png", //导航栏图片地址（替换当前文字标题），支付宝小程序内必须使用https的图片链接地址,仅支持支付宝，app，h5
+		"transparentTitle": "always" //导航栏整体（前景、背景）透明设置。支持 always 一直透明 / auto 滑动自适应 / none 不透明
+		//onReachBottomDistance	//页面上拉触底事件触发时距页面底部距离，单位只支持px，详见页面生命周期	
+		// backgroundColorTop//顶部窗口的背景色（bounce回弹区域）	仅 iOS 平台
+		// backgroundColorBottom//底部窗口的背景色（bounce回弹区域）	仅 iOS 平台
+	},
+	"tabBar": {
+		"color": "#999", //未选中状态字体颜色
+		"selectedColor": "#e93b3d", //选中状态字体颜色
+		"backgroundColor": "#ccc", //tabBar的背景颜色
+		"borderStyle": "white", //tabBar的上边框颜色，只支持black/white
+		"position": "top", //仅支持微信小程序
+		"list": [{
+			"pagePath": "pages/index/index", //该tabBar路径
+			"text": "首页", //该tabBar文字
+			"iconPath": "./static/tabFont/shouye.png", //该tabBar未选中状态图标地址
+			"selectedIconPath": "./static/tabFont/shouyeActive.png" //该tabBar选中状态图片地址
+
+		}, {
+			"pagePath": "pages/list/list",
+			"text": "列表",
+			"iconPath": "./static/tabFont/fenlei.png",
+			"selectedIconPath": "./static/tabFont/fenleiActive.png"
+
+		}, {
+			"pagePath": "pages/detail/detail",
+			"text": "详情页",
+			"iconPath": "./static/tabFont/zhibo.png",
+			"selectedIconPath": "./static/tabFont/zhiboActive.png"
+		}]
+	},
+	"condition": { //启动模式配置，仅开发期间生效，用于模拟直达页面的场景，如：小程序转发后，用户点击所打开的页面。
+		"current": 1,
+		"list": [{
+			"name": "详情页", //编译模式名字
+			"path": "pages/detail/detail", //编译模式路径
+			"query": "id=44" //路径相关参数
+		}, {
+			"name": "cssScss", //编译模式名字
+			"path": "pages/cssScss/cssScss", //编译模式路径
+			"query": "id=44" //路径相关参数
+		}]
+	}
+
+}

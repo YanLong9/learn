@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <router-view></router-view>
+        <nav>
+            <!-- 使用router-link的to属性，和路由的注册路径进行跳转 -->
+            <router-link to="/">首页</router-link>
+            <router-link to="/discover">发现</router-link>
+            <router-link to="/order">订单</router-link>
+            <router-link to="/user">我的</router-link>
+        </nav>
+    </div>
+    <script>
+        // 路由模板
+
+        // 使用to进行路由跳转，值可以是字符串，也可以是对象
+
+        /*字符串   默认使用params传参，同样使用params拿参，需要在下方做路由拼接
+            
+            在路由组件注册时，要将路径后面拼接上所要传递参数的名字
+
+                path: "/detail/:id/:page/:sort/:watched"
+
+            在router-link标签上的to属性中进行，要跳转路由的路径与要传递参数的拼接，格式严格依照路由组件注册路径来
+
+                这种情况下，在传递参数时，不可以少传、漏传、不传，必须路径中写了几个参数，就要传递几个过去
+                也就是说我么无法规定哪些参数是必须的，哪些是不必须的
+
+            在要进入的路由组件中，使用this.$route.params来拿到相应的参数
+        */
+
+        /*对象
+
+            params不能和path一起用 query两者皆可
+
+            query可以和path/name一起做路由跳转传参，不需要配置路由，在地址栏中会将参数名和参数值一起暴露出来
+
+            params可以和name一起用，需要配置路由，在地址栏中只会暴露参数值，不会暴露参数名
+
+            params和query一起用时，不可单独作为对象属性来使用，可以和path拼接到一起使用
+        
+        */
+
+        var index = {
+            data() {
+                return {
+                    arr: [{
+                        title: "第一篇文章",
+                        id: 1,
+                        page: 2,
+                        sort: 3,
+                        watched: 4
+                    }, {
+                        title: "第二篇文章",
+                        id: 2,
+                        page: 3,
+                        sort: 4,
+                        watched: 5
+                    }]
+                }
+            },
+            //在这里进行路径与要传递参数的拼接
+
+            // 字符串模式,默认使用params传参，同样使用params拿参，需要在下方做路由拼接
+            template: `<div>
+                             <p>这里是首页</p>
+                             <ul>
+                                 <li v-for="(item,index) in arr" :key="item.id">
+                                     <router-link :to="'/detail/'+item.id+'/'+item.page+'/'+item.sort+'/'+item.watched">{{item.title}}</router-link>
+                                 </li>
+                             </ul>
+            
+                        </div>`
+                /**/
+
+            // 对象模式  
+            // 使用path+params，下方需要配置路由
+            /*
+                template: `<div>
+                                <p>这里是首页</p>
+                                <ul>
+                                    <li v-for="(item,index) in arr" :key="item.id">
+                                        <router-link :to="{
+                                            path:'/detail/'+item.id+'/'+item.page+'/'+item.sort+'/'+item.watched
+                                        }">{{item.title}}</router-link>
+                                    </li>
+                                </ul>
+                            </div>`
+            */
+            // 下面这种情况不可用
+            /*
+            template: `<div>
+                                <p>这里是首页</p>
+                                <ul>
+                                    <li v-for="(item,index) in arr" :key="item.id">
+                                        <router-link :to="{
+                                            path:'/detail/',
+                                            params:{
+                                             id:item.id,
+                                             page:item.page,
+                                             watched:item.watched
+                                         }
+                                        }">{{item.title}}</router-link>
+                                    </li>
+                                </ul>
+                            </div>`
+                */
+            // 使用path+query，下方不需要配置路由
+            /* template: `<div>
+                             <p>这里是首页</p>
+                             <ul>
+                                 <li v-for="(item,index) in arr" :key="item.id">
+                                     <router-link :to="{
+                                         path:'/detail',
+                                         query:{
+                                             id:item.id,
+                                             page:item.page,
+                                             watched:item.watched
+                                         }
+                                     }">{{item.title}}</router-link>
+                                 </li>
+                             </ul>
+                         </div>`
+            */
+
+            // 使用name+query，下方不需要配置路由
+            /*template: `<div>
+                            <p>这里是首页</p>
+                            <ul>
+                                <li v-for="(item,index) in arr" :key="item.id">
+                                    <router-link :to="{
+                                        name:'detail',
+                                        query:{
+                                            id:item.id,
+                                            page:item.page,
+                                            watched:item.watched
+                                        }
+                                    }">{{item.title}}</router-link>
+                                </li>
+                            </ul>
+                        </div>`
+                */
+
+            // 使用name+params，下方需要配置路由
+            /* template: `<div>
+                             <p>这里是首页</p>
+                             <ul>
+                                 <li v-for="(item,index) in arr" :key="item.id">
+                                     <router-link :to="{
+                                         name:'detail',
+                                         params:{
+                                             id:item.id,
+                                             page:item.page,
+                                             watched:item.watched
+                                         }
+                                     }">{{item.title}}</router-link>
+                                 </li>
+                             </ul>
+                         </div>`
+            */
+        }
+        var discover = {
+            template: `<div>这里是发现</div>`
+        }
+        var order = {
+            template: `<div>这里是订单</div>`
+        }
+        var user = {
+            template: `<div>这里是我的</div>`
+        }
+        var detail = {
+            template: `<div>
+                            <p>{{title}}</p>
+                        </div>`,
+            data() {
+                return {
+                    arr: [{
+                        title: "第一篇文章",
+                        id: 1
+                    }, {
+                        title: "第二篇文章",
+                        id: 2
+                    }],
+                    title: ""
+                }
+            },
+            mounted() {
+                console.log(this.$route) //使用这种方法来拿到传过来的参数
+                for (var i = 0; i < this.arr.length; i++) {
+                    if (this.arr[i].id == this.$route.params.id) {
+                        this.title = this.arr[i].title
+                    }
+                }
+            }
+        }
+
+        //路由注册
+        var routes = [{
+                path: "/",
+                name: "index",
+                component: index
+            }, {
+                path: "/discover",
+                name: "discover",
+                component: discover
+            }, {
+                path: "/order",
+                name: "order",
+                component: order
+            }, {
+                path: "/user",
+                name: "user",
+                component: user
+            }, {
+                path: "/detail/:id/:page/:sort/:watched",
+                //使用params时要用的路由，定义路径与要传递的参数、参数名字、参数传递顺序，如果不拼接则拿不到传递的数据
+                name: "detail",
+                component: detail
+            },
+            // {
+            //     path: "/detail", //使用query传参时要用的路由
+            //     name: "detail",
+            //     component: detail
+            // }
+        ]
+
+        //实例化路由对象
+        const router = new VueRouter({
+            routes
+        })
+        var app = new Vue({
+            el: "#app",
+            router
+        })
+    </script>
+</body>
+
+</html>

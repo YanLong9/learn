@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        position:static（默认值）
+                absolute
+                relative
+                fixed
+
+            定位也就是css中的层模型
+
+            通过使用top、right、bottom、left的值来固定元素的位置
+
+            relative    相对定位，元素在标准流中的位置会被保留为一片空白，未脱离文档流
+                        定位就是根据自身在标准流中的位置进行定位
+
+            absolute    绝对定位，元素在标准流中的位置会被删除，完全脱离文档流
+                        定位是根据父元素的position属性来进行定位，
+                        如果父元素的position属性不为static，则相对于父元素进行定位
+                        如果父元素的position属性为static，则向上一级查找
+                        直到查找到position属性部位static的祖先元素，相对于该元素进行定位
+                        如果最后直到HTML标签都没找到，则相对于HTML标签进行定位
+
+            fixed       固定定位，元素在标准流中的位置会被删除，完全脱离文档流
+                        相对于浏览器视口进行定位，无关文档流
+
+            
+
+            top     定义了定位元素的上外边距边界与其包含块上边界之间的偏移。
+            bottom  定义了定位元素的下外边距边界与其包含块下边界之间的偏移。
+            left    定义了定位元素的左外边距边界与其包含块左边界之间的偏移。
+            right   定义了定位元素的右外边距边界与其包含块右边界之间的偏移。
+
+            length:其中0代表无偏移，负值代表向该方向移动对应的数值，正值代表向反方向移动对应的数值
+            %：    正负与length对应，百分数计算的父元素的垂直length与水平length，
+
+            ps:这四个属性是有优先级的，水平方向如果出现了left那么right就不再生效，
+                垂直方向如果出现了top那么bottom就不再生效
+  
+    -->
+    <!-- 
+        相关属性：
+
+        z-index:auto	  默认。堆叠顺序与父元素相等。
+                number	  设置元素的堆叠顺序。
+
+        cursor： url	    需使用的自定义光标的 URL。
+                default	    默认光标（通常是一个箭头）
+                auto	    默认。浏览器设置的光标。
+                crosshair	光标呈现为十字线。
+                pointer	    光标呈现为指示链接的指针（一只手）
+                move	    此光标指示某对象可被移动。
+                e-resize	此光标指示矩形框的边缘可被向右（东）移动。
+                ne-resize	此光标指示矩形框的边缘可被向上及向右移动（北/东）。
+                nw-resize	此光标指示矩形框的边缘可被向上及向左移动（北/西）。
+                n-resize	此光标指示矩形框的边缘可被向上（北）移动。
+                se-resize	此光标指示矩形框的边缘可被向下及向右移动（南/东）。
+                sw-resize	此光标指示矩形框的边缘可被向下及向左移动（南/西）。
+                s-resize	此光标指示矩形框的边缘可被向下移动（北/西）。
+                w-resize	此光标指示矩形框的边缘可被向左移动（西）。
+                text	    此光标指示文本。
+                wait	    此光标指示程序正忙（通常是一只表或沙漏）。
+                help	    此光标指示可用的帮助（通常是一个问号或一个气球）。
+     -->
+</body>
+
+</html>

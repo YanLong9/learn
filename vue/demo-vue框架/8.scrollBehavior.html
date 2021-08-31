@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        scrollBehavior写在router文件夹中的index.js文件中,是实例化的vue-router对象的一个方法
+
+        触发条件：
+            1.进行路由跳转
+            2.浏览器前进/后退按钮
+            //没有找到使用代码来定义调用方式的办法
+
+        const router = new VueRouter({
+            scrollBehavior(to,from,savedPosition){
+                
+                console.log(to)//到哪里去
+                console.log(from)//从哪里来
+                console.log(savedPosition)
+                //该参数当路由跳转切换导航，去往的是之前没有访问过得路由地址，会是一个null
+                //如果是之前访问过的路由地址，还是一个null
+                //与路由地址是否由keep-alive进行缓存无关
+                //当使用浏览器的前进/后退按钮时，会读取history中，要去往页面的记录的滚动位置，然后将值赋给该参数
+                
+
+                //模拟浏览器前进/后退按钮，的滚动操作
+                return savedPosition
+
+                //当使用浏览器前进/后退按钮时，默认滚动到history中保存的状态
+                //当路由跳转时，直接回顶
+                if (savedPosition) {
+                    return savedPosition
+                } else {
+                    return {
+                        x: 0,
+                        y: 0
+                    }
+                }
+
+                //直接无论使用浏览器前进/后退按钮，还是进行路由跳转，都直接回顶
+                return {
+                    x: 0,
+                    y: 0
+                }
+            },
+            routes
+        })
+
+        ps：浏览器经常会帮我们记录history中，每个页面的滚动位置，每次使用浏览器的前进/后退按钮访问一个页面时，
+            就会默认帮我们自动滚动到记录的位置，所以我感觉这个东西有点鸡肋
+
+            但是可以用来，在keep-alive缓存动态组件之后，路由跳转会自动帮我们滚动到缓存的状态
+            上述情况下，定义回顶操作，又不会干扰到keep-alive的其他缓存状态
+            
+
+
+ -->
+</body>
+
+</html>

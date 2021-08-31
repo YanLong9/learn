@@ -1,0 +1,1 @@
+<view id="cssScss" data-event-opts="{{[['tap',[['clickCssScss',['$event']]]]]}}" bindtap="__e" class="data-v-d86d6ca4">{{'这里是cssScss页面'+name+''}}<view class="box data-v-d86d6ca4"><view class="data-v-d86d6ca4"><text class="data-v-d86d6ca4">123</text></view></view></view>

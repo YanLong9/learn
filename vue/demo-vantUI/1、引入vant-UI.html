@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--    vantUI官网        https://youzan.github.io/vant/#/zh-CN/home
+            vantUI引入方式        https://blog.csdn.net/ahui829/article/details/101105569
+    
+    1、首先安装npm依赖
+
+        npm i vant -S
+
+    2、引入方式
+-->
+    <!--  
+        1、直接全部引入，在main.js文件中
+
+            import Vant from 'vant'
+            import 'vant/lib/index.css'
+            Vue.use(Vant)
+
+            ps：
+                1、Vant 支持一次性导入所有组件，引入所有组件会增加代码包体积，因此不推荐这种做法
+                2、配置按需引入后，将不允许直接导入所有组件
+                3、直接引入后，在相应的vue文件中，则不需要再次引入相关组件，可直接写代码使用
+-->
+
+    <!--  
+        2、手动按需引入组件（以轮播图为例）
+
+            在对应的路由或组件文件中的，script标签的顶部，根据官网中对应组件的引入方式明确需要引入的组件名
+
+                import Swipe from 'vant/lib/swipe'
+                import 'vant/lib/swipe/style'
+
+                import SwipeItem from 'vant/lib/swipe-item'
+                import 'vant/lib/swipe-item/style'
+
+            然后进行对应的组件注册
+
+                components:{
+                    "van-swipe":Swipe,
+                    "van-swipe-item":SwipeItem
+                }
+
+            接着根据官网中该组件的使用方式，写对应的HTML和css代码即可。
+
+            ps：注意官网中引入对应组件时的名称问题，在vant/lib文件夹中文件名没有大写
+                如：import { Swipe, SwipeItem } from 'vant'
+                则引入对应的组件时要
+                    Swipe       --》  vant/lib/swipe
+                    SwipeItem   --》  vant/lib/swipe-item
+                注册时要
+                    Swipe       --》  "van-swipe":Swipe
+                    SwipeItem   --》  "van-swipe-item":SwipeItem
+-->
+
+    <!-- 
+        3、使用插件，自动配置按需引入
+
+            1、首先安装插件
+                npm i babel-plugin-import -D      //官网//https://blog.csdn.net/linysuccess/article/details/102934843
+                npm i babel-plugin-import --save-dev   //上述命令等同于这一条命令
+                  
+            2、在.babelrc中添加配置//该配置是为了使用webpack项目打包时所用
+
+                {
+                    "plugins": [
+                        [
+                            "import",
+                                {
+                                    "libraryName": "vant",
+                                    "libraryDirectory": "es",
+                                    "style": true
+                                }
+                        ]
+                    ]
+                }
+
+                ps：webpack 1 无需设置 libraryDirectory
+
+            3、对于使用 babel7 的用户，可以在 babel.config.js 中配置
+
+                module.exports = {
+                    plugins: [
+                        ['import', {
+                            libraryName: 'vant',
+                            libraryDirectory: 'es',
+                            style: true
+                        }, 'vant']
+                    ]
+                };
+
+            4、在项目中使用对应的组件（以轮播图为例）
+
+                import Vue from 'vue'
+                import { Swipe, SwipeItem } from 'vant'
+
+                Vue.use(Swipe)
+                Vue.use(SwipeItem)
+
+                ps：直接在对应需要使用该组件的.vue路由或者组件文件中，script标签的顶部，
+                    写入官网中对应组件的引入方式即可
+
+            5、当卸载该插件时，会出现项目跑不起来，运行项目报错
+                这是因为.babelrc文件的原因，即使将该文件中的配置全部注释，也不行
+                所以当该插件存在时，需要有.babelrc文件，并进行相应的配置，不然运行项目报错
+                该插件不存在时，".babelrc"文件不能存在，不然运行项目报错
+-->
+
+    <!--
+        
+        删除npm 依赖
+
+        【npm uninstall xxx】删除xxx依赖
+        【npm uninstall xxx -g】删除全局依赖xxx
+
+        删除项目中的依赖时，会自动将package.json中的相关信息删除
+
+ -->
+</body>
+
+</html>

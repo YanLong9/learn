@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrap {
+            width: 100%;
+            border: 1px solid red;
+        }
+        
+        .wrap div {
+            width: 400px;
+            height: 200px;
+        }
+        
+        .wrap .box1 {
+            background: red;
+        }
+        
+        .wrap .box2 {
+            background: yellow;
+            float: left;
+        }
+        
+        .wrap .box3 {
+            background: blue;
+            width: 600px;
+            height: 500px;
+        }
+        
+        .wrap .box4 {
+            background: green;
+            float: left;
+        }
+        /*wrap1*/
+        
+        .wrap1 {
+            width: 100%;
+            padding: 50px;
+            border: 20px solid red;
+            margin-top: 500px;
+        }
+        
+        .wrap1 div {
+            width: 400px;
+            height: 200px;
+            float: right;
+        }
+        
+        .wrap1 .box1 {
+            background: red;
+        }
+        
+        .wrap1 .box2 {
+            background: yellow;
+        }
+        
+        .wrap1 .box3 {
+            background: blue;
+            width: 600px;
+            height: 500px;
+        }
+        
+        .wrap1 .box4 {
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="box1">div1</div>
+        <div class="box2">div2</div>
+        <!-- 浮动后高度并不计算在父元素中 -->
+        <div class="box3">div3</div>
+        <!-- 内容并没有被box2所遮挡 -->
+        <div class="box4">div4</div>
+        <!-- 浮动后高度并不计算在父元素中，并没有去找寻box2，在垂直位置还是固定在原地 -->
+    </div>
+
+    <div class="wrap1">
+        <div class="box1">div1</div>
+        <div class="box2">div2</div>
+        <div class="box3">div3</div>
+        <div class="box4">div4</div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+
+        vue-cli3以后通过在根目录下创建vue.config.js文件来配置
+
+        1、http-proxy-middleware  进行请求代理配置（类似于解决跨域问题）
+
+            // vue.config.js
+            module.exports = {
+                // 选项...
+                publicPath: process.env.NODE_ENV === 'production' 
+                ?'http://localhost:8080' 
+                :'/',
+                devServer: {
+                    port: '3000',
+                    proxy: {
+                        '/api': {
+                            target: 'https://h5.ele.me/',
+                            ws: true, //websocket
+                            changeOrigin: true, //是否跨域
+                            pathRewrite: {
+                                '^/api': ''
+                            }
+                        }
+                    }
+                }
+            }
+ -->
+
+    <!-- 
+        // vue.config.js
+        module.exports = {
+            // 选项...
+            publicPath: process.env.NODE_ENV === 'production'
+            ? 'http://localhost:8080'
+            : '/',
+            devServer: {
+                host: 'http://localhost',//地址
+                port: '8080',//端口
+                proxy: {
+                    '/api': {
+                        target: 'https://h5.ele.me/',//代理地址
+                        ws: true,//websocket
+                        changeOrigin: true,//是否跨域
+                        pathRewrite: {
+                            '^/api': '/api'
+                        }
+                    }
+                }
+            }
+        }
+     -->
+</body>
+
+</html>

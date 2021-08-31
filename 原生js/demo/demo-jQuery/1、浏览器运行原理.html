@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        jq代码的起手
+
+        1.$(function(){})不会被覆盖，个人感觉$(function(){})不会被覆盖的原因是将其放入到了一个队列中，
+          在对应时机一次出队。$(function(){})类似于原生js中的DOMContentLoaded事件，在DOM加载完毕后，
+          页面全部内容（如图片等）完全加载完毕前被执行。
+
+        2.而window.onload会被覆盖，$(function(){})在window.onload执行前执行的，
+          而window.onload会在页面资源全部加载完毕后才会执行。
+
+        DOM文档加载步骤：
+
+            1.解析HTML结构 
+            2.加载外部的脚本和样式文件 
+            3.解析并执行脚本代码 
+            4.执行$(function(){})内对应代码 
+            5.加载图片等二进制资源 
+            6.页面加载完毕，执行window.onload
+
+        二者最大的区别就是
+        $(function(){})会在dom加载完毕之后就执行
+        window.onload会在页面资源全部加载完毕之后执行
+
+     -->
+    <link rel="stylesheet" href="">
+    <img src="" alt="">
+    <a href=""></a>
+    <!-- 
+        href 与 src 的区别
+
+        href是Hypertext Reference的缩写，表示超文本引用。用来建立当前元素和文档之间的链接。
+
+        src是source的缩写，src的内容是页面必不可少的一部分，是引入。
+        src指向的内容会嵌入到文档中当前标签所在的位置。
+
+        当文档解析过程中，遇到href时，并且不会停止对当前文档的处理。
+        而当文档解析遇到src时，会暂停浏览器的渲染，知道该资源加载完毕。
+
+     -->
+
+    <script src="./jquery-1.12.4.js"></script>
+    <script>
+        //jq代码一般都放在该函数里面
+        $(document).ready(function() {
+            console.log(2)
+        })
+
+        //等同与上述写法，是上述写发的缩写
+        $(function() {
+            console.log(1)
+        })
+
+        //利用了window.onload函数
+        window.onload = function() {
+            console.log(3)
+        }
+
+        //window.onload函数会被覆盖
+        window.onload = function() {
+            console.log(4)
+        }
+
+        //1、2、4
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //数组去重
+        var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+        var arr1 = [];
+        for (var i = 0; i < arr.length; i++) {
+            if (arr1.indexOf(arr[i]) == -1) {
+                arr1.push(arr[i])
+            }
+        }
+        console.log(arr1)
+
+        //数组排序
+
+        //冒泡排序  从小到大
+        /*
+                           这个for循环会执行9次，
+                           第一次执行将会循环9次，选出最大的一个数，将其放在数组倒数第一位
+                           第二次执行将会执行8次，选出第二大的数，将其放在数组的倒数第二位
+                           第三次执行将会执行7次，选出第三大的数，将其放在数组的倒数第三位
+                           ......
+                           第九次执行将会执行1次，选出最小的数，将其放在数组第一位
+                       */
+
+
+        var arr3 = [3, 1, 2, 4, 7, 6, 8, 5, 9]
+
+        for (let i = 0; i < arr3.length; i++) {
+            for (let j = 0; j < arr3.length - i; j++) {
+                if (arr3[j] > arr3[j + 1]) {
+                    var temp = arr3[j];
+                    arr3[j] = arr3[j + 1];
+                    arr3[j + 1] = temp;
+                }
+            }
+        }
+
+
+
+
+
+        console.log(arr3)
+
+        //快速排序  
+        var arr4 = [1, 4, -8, -3, 6, 12, 9, 8, 7];
+
+        function quicklySort(array) {
+            if (array.length <= 1) {
+                return array
+            }
+            var mid = Math.floor(array.length / 2);
+            // console.log(mid)
+            var left = [],
+                right = [],
+                temp = array.splice(mid, 1);
+            for (var j = 0; j < array.length; j++) {
+                if (array[j] <= temp) {
+                    left.push(array[j])
+                } else {
+                    right.push(array[j])
+                }
+            }
+            return quicklySort(left).concat(temp, quicklySort(right))
+        }
+
+        arr4 = quicklySort(arr4)
+        console.log(arr4)
+
+        //选择排序
+
+        var arr5 = [1, 4, -8, -3, 6, 12, 9, 8, 7, 22, 11, 28, 14, 48, 35];
+        for (var i = 0; i < arr5.length; i++) {
+            var min = arr5[i],
+                minIndex = i;
+            for (var j = i + 1; j < arr5.length; j++) {
+                if (min > arr5[j]) {
+                    min = arr5[j];
+                    minIndex = j;
+                }
+            }
+            arr5.splice(i, 0, min);
+            arr5.splice(minIndex + 1, 1)
+        }
+        console.log(arr5)
+
+
+
+
+
+        // 插入法排序  
+
+        var arr2 = [1, 4, -8, -3, 6, 12, 9, 8];
+        for (var i = 0; i < arr2.length; i++) {
+
+        }
+
+        function insertSort(arr) {
+            //假设第0元素是有序序列，第1元素之后是无序的序列。从第1元素开始依次将无序序列的元素插入到有序序列中
+            for (var i = 1; i < arr.length; i++) {
+                if (arr[i] < arr[i - 1]) {
+                    //取出无序序列中需要插入的第i个元素
+                    var temp = arr[i];
+                    //定义有序中的最后一个位置
+                    var j = i - 1;
+                    arr[i] = arr[j];
+                    //比较大小，找到插入的位置
+                    while (j >= 0 && temp < arr[j]) {
+                        arr[j + 1] = arr[j];
+                        j--;
+                    };
+                    //插入
+                    arr[j + 1] = temp;
+                }
+            }
+            console.log(arr2)
+        }
+        insertSort(arr2)
+    </script>
+</body>
+
+</html>

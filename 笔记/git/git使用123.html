@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+
+        https://www.cnblogs.com/rendd/p/7228423.html
+        https://www.jianshu.com/p/93318220cdce
+
+        clone中HTTP和ssh的区别
+        
+        https://blog.csdn.net/jfkidear/article/details/90376833
+
+        https://blog.csdn.net/weixin_44950987/article/details/102619708
+
+
+        1、提交 
+
+            git add .                       将更新提交到暂存区
+
+            git commit -m "提交信息"         将更新提交到本地仓库
+
+            git push                        将更新提交到远程仓库
+
+        2、配置git用户config
+
+            git config --global user.name "username"
+
+            git config --global user.email "study@user.com"
+
+            git config --global --list     查看当前电脑全局用户config配置
+                       --system            查看当前电脑系统config配置
+                       --local             查看当前仓库用户config配置
+
+        3、分支
+            
+            1.基础命令
+
+                git branch                      查看本地仓库中的所有分支，当前分支前面会有一个 “ * ”
+
+                git branch -r                   查看远程仓库中的所有分支
+
+                git branch -a                   查看远程 and 本地仓库中的所有分支，当前分支前面会有一个 “ * ”，远程分支前面会有“ remotes ”
+
+                git branch 分支名                在本地仓库中创建分支
+
+                git checkout 分支名              将本地仓库中的分支切换到该分支
+
+                git checkout –b 分支名           相当于上面两个命令的合体，在本地仓库创建并切换到该分支
+
+                git branch –d 分支名             删除本地仓库中的某分支，删除之前必须要首先切换到其他分支，才能执行该操作
+
+                git fetch 
+
+                    默认拉取所有的，远程有的分支，而本地仓库没有的分支。当在远程创建了新的分支，本地没有，就可以这样拉取远程分支到本地
+                    将本地分支与远程保持同步
+
+                git checkout –b 本地分支名 origin/远程分支名           
+                
+                    在本地仓库从 origin/远程分支名 创建 该分支，并切换到该分支
+
+                git branch --set-upstream 本地分支 origin/远程分支名        --set-upstream已经不支持         
+                git branch --set-upstream-to=origin/远程分支名 本地分支
+
+                    更改本地分支关联的远程分支
+
+            2.通过本地命令来删除远程分支
+
+                git push origin --delete 远程分支              删除远程分支
+                git push origin :远程分支                      删除远程分支，相当于给远程分支推荐一个空，以达到删除远程分支的目的
+
+            3.通过本地命令来创建远程分支
+            
+                git checkout -b 本地分支                                  在本地仓库的当前分支下创建并切换到该分支
+                git push origin 本地分支                                  将该分支推送到远程 
+
+                git checkout -b 本地分支                                  在本地仓库的当前分支下创建并切换到该分支
+                git push origin 本地分支:远程分支                          将本地的该分支推送到远程的该分支，如果没有该远程分支，那么就创建一个远程分支
+
+                git branch --set-upstream-to=origin/远程分支名 本地分支    更改本地分支关联的远程分支  
+
+            4.查看本地分支关联的是哪个远程分支
+
+                git status                                   切换到本地分支，在该分支下输入该命令，即可查看本地该分支关联的哪一个远程分支
+
+            5.如何在不提交本分支中的修改内容的情况下，切换到其他分支-------储藏操作
+
+                git stash save '注释'                         将工作区和暂存区的更改储存起来
+                git stash list                                查看当前仓库的储存内容
+
+                    stashID: On develop: message
+
+
+                git stash pop        
+                git stash pop --index                         将存储列表中的最新一条存储内容恢复到对应分支的工作区和暂存区
+                git stash pop stashID                         将存储列表中指定的内容恢复到对应分支的工作区和暂存区
+
+                git stash apply                               将存储列表中指定的内容恢复到对应分支的工作区和暂存区，并保留存储列表中的存储记录，
+                git stash apply stashID                       其余和git stash pop 命令一样。
+                git stash apply --index 
+
+                git stash drop stashID                        删除存储列表中的一条存储内容
+                git stash clear                               删除存储列表中的所有存储内容
+
+            6.合并本地分支
+
+                git rebase 分支名                              将本地仓库中的某分支合并到当前分支
+
+                git merge 分支名                               将本地仓库中的某分支合并到当前分支
+
+                git merge --no-ff 分支名                       非快进合并 
+     -->
+</body>
+
+</html>

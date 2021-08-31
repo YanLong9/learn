@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <router-view></router-view>
+
+        <nav>
+            <!-- 使用事件进行跳转 this.$router.push({})  或者  this.$router.replace({}) -->
+            <!-- 
+                params不能和path一起用 query两者皆可
+
+                query可以和path/name一起做路由跳转传参，不需要配置路由，在地址栏中会将参数名和参数值一起暴露出来
+
+                params可以和name一起用，需要配置路由，在地址栏中只会暴露参数值，不会暴露参数名
+
+                params和path一起用时，不可单独作为对象属性来使用，可以和path拼接到一起使用
+            -->
+            <p @click="goPage(1)">首页</p>
+            <p @click="goPage(2)">发现</p>
+            <p @click="goPage(3)">订单</p>
+            <p @click="goPage(4)">我的</p>
+        </nav>
+    </div>
+    <script>
+        // 路由模板
+        var index = {
+            data() {
+                return {
+                    arr: [{
+                        title: "第一篇文章",
+                        id: 1,
+                        page: 2,
+                        sort: 3,
+                        watched: 4
+                    }, {
+                        title: "第二篇文章",
+                        id: 2,
+                        page: 3,
+                        sort: 4,
+                        watched: 5
+                    }]
+                }
+            },
+            template: `<div>
+                            <p>这里是首页</p>
+                            <ul>
+                                <li v-for="(item,index) in arr" :key="item.id">
+                                    <p @click="goDetail(item)">{{item.title}}</p>
+                                </li>
+                            </ul>
+                        </div>`,
+            methods: {
+                goDetail(item) {
+                    // 下方使用push作为例子，可以更改为replace，无用法上的区别，但是replace不会留下history记录
+
+                    //name+query传参，这种方式不需要配置路由
+                    // this.$router.push({
+                    //     name: "detail",
+                    //     query: {
+                    //         id: item.id,
+                    //         page: item.page,
+                    //         watched: item.watched
+                    //     }
+                    // })
+
+                    //name+params传参，这种方式需要配置路由
+                    // this.$router.push({
+                    //     name: "detail",
+                    //     params: {
+                    //         id: item.id,
+                    //         page: item.page,
+                    //         watched: item.watched
+                    //     }
+                    // })
+
+                    //path+query传参，这种方式不需要配置路由
+                    // this.$router.push({
+                    //     path: "/detail",
+                    //     query: {
+                    //         id: item.id,
+                    //         page: item.page,
+                    //         watched: item.watched
+                    //     }
+                    // })
+
+                    // path+params传参，这种方式需要配置路由
+                    this.$router.replace({
+                        path: '/detail/' + item.id + '/' + item.page + '/' + item.sort + '/' + item.watched
+                    })
+
+                    //path+params传参，这种方式不可用
+                    // this.$router.push({
+                    //     path: "/detail",
+                    //     params: {
+                    //         id: item.id,
+                    //         page: item.page,
+                    //         watched: item.watched
+                    //     }
+                    // })
+
+                }
+            }
+        }
+        var discover = {
+            template: `<div>这里是发现</div>`
+        }
+        var order = {
+            template: `<div>这里是订单</div>`
+        }
+        var user = {
+            template: `<div>这里是我的</div>`
+        }
+        var detail = {
+            template: `<div>
+                            <p>{{title}}</p>
+                        </div>`,
+            data() {
+                return {
+                    arr: [{
+                        title: "第一篇文章",
+                        id: 1
+                    }, {
+                        title: "第二篇文章",
+                        id: 2
+                    }],
+                    title: ""
+                }
+            },
+            mounted() {
+                console.log(this.$route)
+                for (var i = 0; i < this.arr.length; i++) {
+                    if (this.arr[i].id == this.$route.params.id) {
+                        this.title = this.arr[i].title
+                    }
+                }
+            }
+        }
+
+        //路由注册
+        var routes = [{
+                path: "/",
+                name: "index",
+                component: index
+            }, {
+                path: "/discover",
+                name: "discover",
+                component: discover
+            }, {
+                path: "/order",
+                name: "order",
+                component: order
+            }, {
+                path: "/user",
+                name: "user",
+                component: user
+            },
+            //  {
+            //     path: "/detail",
+            //     name: "detail",
+            //     component: detail
+            // }
+            {
+                path: "/detail/:id/:page/:sort/:watched",
+                //使用params时要用的路由，定义路径与要传递的参数、参数名字、参数传递顺序，如果不拼接则拿不到传递的数据
+                name: "detail",
+                component: detail
+            },
+        ]
+
+        //实例化路由对象
+        const router = new VueRouter({
+            routes
+        })
+        var app = new Vue({
+            el: "#app",
+            router,
+            methods: {
+                goPage(ind) {
+                    switch (ind) {
+                        case 1:
+                            //使用path来跳转 
+                            // this.$router.push({
+                            //     path: "/"
+                            // })
+
+                            // 使用name来进行跳转
+                            this.$router.push({
+                                name: "index"
+                            })
+                            break;
+                        case 2:
+                            //使用path来跳转 
+                            // this.$router.push({
+                            //     path: "/discover"
+                            // })
+
+                            // 使用name来进行跳转
+                            this.$router.push({
+                                name: "discover"
+                            })
+                            break;
+                        case 3:
+                            //使用path来跳转 
+                            // this.$router.push({
+                            //     path: "/order"
+                            // })
+
+                            // 使用name来进行跳转
+                            this.$router.push({
+                                name: "order"
+                            })
+                            break;
+                        case 4:
+                            //使用path来跳转 
+                            // this.$router.push({
+                            //     path: "/user"
+                            // })
+
+                            // 使用name来进行跳转
+                            this.$router.push({
+                                name: "user"
+                            })
+                            break;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

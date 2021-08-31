@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        每一个函数都包含一个prototype属性，这个属性是指向一个对象的引用， 
+        这个对象称作“ 原型对象 ”（ prototype object)。每一个函数都包含不同的原型对象。 
+        当将函数用作构造函数的时候，新创建的对象会从原型对象上继承属性。
+    -->
+    <script>
+        /*
+
+            只有函数对象有prototype对象
+            普通对象没有prototype对象 但是有一个__proto__ 属性  //左右两边都是两个下划线
+
+                    __proto__   在不同的浏览器上 表现形式不一样 实现的功能是相同的
+                    __proto__ -> chrome下的表现形式
+                    <prototype> -> ff下的表现形式
+            
+            构造函数实例对象.__proto__ = 该对象的构造函数.prototype    
+            
+                chrome浏览器
+                    prototype
+                        函数对象上有
+                        普通对象上没有//undefined
+
+                    __proto__
+                        普通对象上有
+                        函数对象上的是ƒ(){[native code]},大概也是相当于有吧，该属性可用，但是没找到能够直观的观察该属性的方式
+
+            构造函数的原型的构造器属性==该构造函数
+
+                构造函数.prototype.constructor==构造函数
+                构造函数实例对象.__proto__.constructor==构造函数
+
+            函数的公用方法和公用属性都在prototype上
+        
+        */
+        //创建一个对象
+        function fn() {}
+
+        var obj = {}
+        var obj1 = new Object()
+        var obj2 = new fn()
+        console.log(obj)
+        console.log(obj1)
+        console.log(obj2)
+        console.log(typeof obj) //object
+        console.log(typeof obj1) //object
+        console.log(typeof obj2) //object
+        console.log(obj.__proto__ === Object.prototype) //true
+        console.log(obj1.__proto__ === Object.prototype) //true
+        console.log(obj2.__proto__ === Object.prototype) //false    //使用不同方式生成的Object，还是有些细微的差别的
+        console.log(obj.__proto__.constructor === Object) //true
+        console.log(obj1.__proto__.constructor === Object) //true
+        console.log(obj2.__proto__.constructor === Object) //false   //使用不同方式生成的Object，还是有些细微的差别的
+        console.log(Object.prototype.constructor === Object) //true
+        console.log(Object.__proto__.constructor === Object) //false
+        console.log(Object.__proto__ === Object.prototype) //false      
+
+
+        console.log(obj2.__proto__ === fn.prototype) //true
+        console.log(fn.prototype.__proto__ === Object.prototype) //true
+        console.log(fn.__proto__.__proto__ === Object.prototype) //true
+        console.log(Function.__proto__.__proto__ === Object.prototype) //true
+        console.log(Array.__proto__.__proto__ === Object.prototype) //true
+        console.log(obj2.__proto__.__proto__ === Object.prototype) //true
+        console.log(obj2.__proto__.__proto__ === Object.prototype) //true
+
+
+        console.log(obj2.__proto__ === fn.prototype) //true
+        console.log(obj2.__proto__.constructor === fn) //true
+        console.log(fn.__proto__ === Function.prototype) //true
+        console.log(fn.__proto__.constructor === Function) //true
+        console.log(fn.__proto__ === Function.__proto__) //true
+        console.log(Function.prototype === Function.__proto__) //true
+        console.log(fn.prototype === fn.__proto__) //false
+
+        console.log(fn.prototype === Function.__proto__) //false
+        console.log(fn.prototype === Function.prototype) //false
+
+        console.log("-------------------------------------------------------------------")
+
+        //创建一个数组
+        var arr = [];
+        var arr1 = new Array()
+        console.log(arr)
+        console.log(arr1)
+        console.log(typeof arr) //object
+        console.log(typeof arr1) //object
+        console.log(arr.__proto__ === Array.prototype) //true
+        console.log(arr1.__proto__ === Array.prototype) //true
+        console.log(arr.__proto__.constructor === Array) //true
+        console.log(arr1.__proto__.constructor === Array) //true
+        console.log(Array.prototype.constructor === Array) //true
+        console.log(Array.__proto__.constructor === Array) //false
+        console.log(Array.__proto__ === Array.prototype) //false
+
+        console.log("-------------------------------------------------------------------")
+
+        //创建一个函数
+        var fn1 = function () {}
+
+        function fn2() {}
+        var fn3 = new Function()
+        console.log(fn1)
+        console.log(fn2)
+        console.log(fn3)
+        console.log(typeof fn1) //function
+        console.log(typeof fn2) //function
+        console.log(typeof fn3) //function
+
+        console.log(fn1.__proto__ === Function.prototype) //true
+        console.log(fn2.__proto__ === Function.prototype) //true
+        console.log(fn3.__proto__ === Function.prototype) //true
+        console.log(fn3.__proto__.constructor === Function) //true
+        console.log(fn2.__proto__.constructor === Function) //true
+        console.log(fn1.__proto__.constructor === Function) //true
+        console.log(Function.prototype.constructor === Function) //true
+        console.log(Function.__proto__.constructor === Function) //true
+        console.log(Function.prototype === Function.__proto__) //true
+
+        console.log("-------------------------------------------------------------------")
+
+        // prototype
+
+        console.log(fn1.prototype) //存在
+        console.log(fn2.prototype) //存在
+        console.log(fn3.prototype) //存在
+
+        console.log(obj1.prototype) //不存在
+        console.log(obj2.prototype) //不存在
+        console.log(obj.prototype) //不存在
+
+        console.log(arr.prototype) //不存在
+        console.log(arr1.prototype) //不存在
+
+        console.log(Array.prototype) //存在
+        console.log(Object.prototype) //存在
+        console.log(Function.prototype) //ƒ(){[native code]}
+        console.log("-------------------------------------------------------------------")
+
+
+        //__proto__
+        console.log(fn1.__proto__) //?//ƒ(){[native code]}
+        console.log(fn2.__proto__) //?//ƒ(){[native code]}
+        console.log(fn3.__proto__) //?//ƒ(){[native code]}
+
+        console.log(obj1.__proto__) //存在
+        console.log(obj2.__proto__) //存在
+        console.log(obj.__proto__) //存在
+
+        console.log(arr.__proto__) //存在
+        console.log(arr1.__proto__) //存在
+
+        console.log(Array.__proto__) //?//ƒ(){[native code]}
+        console.log(Object.__proto__) //?//ƒ(){[native code]}
+        console.log(Function.__proto__) //?//ƒ(){[native code]}
+        console.log("-------------------------------------------------------------------")
+
+        console.log(obj) //有_proto_
+        console.log(arr) //有_proto_
+        console.log(fn1) //点不开
+
+        console.log(Array.prototype == arr.__proto__) //true
+        console.log("-------------------------------------------------------------------")
+
+        console.log(fn3.__proto__ === Function.prototype) //true
+        console.log(fn3.prototype.constructor === fn3) //true
+        console.log(obj1.__proto__ === Object.prototype) //true
+        console.log(arr1.__proto__ === Array.prototype) //true
+        // console.log(arr1.prototype.constructor === Array)//false
+        // console.log(obj1.prototype.constructor === Object)//false
+
+        //prototype  和  __proto__
+
+        /*
+            prototype
+                函数对象上有
+                普通对象上没有
+
+            __proto__
+                普通对象上有
+                函数对象上的是ƒ(){[native code]}
+        */
+    </script>
+</body>
+
+</html>

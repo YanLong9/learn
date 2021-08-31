@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+</body>
+<script>
+    function fn(m, n) {
+        var arr = []
+
+        function fn1(m, n) {
+            if (m != 0) {
+                arr = arr.concat(n)
+                fn1(m - 1, n)
+            }
+        }
+        fn1(m, n)
+        return arr
+    }
+    var arr = fn(9, 1)
+
+    function fn1(m, n) {
+        return m ? fn1(m - 1, n).concat(n) : []
+    }
+
+    console.log(fn1(9, 1))
+</script>
+
+</html>

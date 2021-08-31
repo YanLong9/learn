@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        hr {
+            color: red;
+        }
+    </style>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <house>
+            这是一个父组件
+            <hr> {{girl}}
+            <hr>
+            <template v-slot:hou="{girl1,girl2}">
+                {{girl1}}<hr>
+                {{girl2}}<hr>
+            </template>
+            <!--这里可以直接放置内容、元素、其他组件，或者任意混合  -->
+        </house>
+    </div>
+    <script>
+        ;
+        /*
+            如果 组件中 没有包含一个 <slot> 元素，则该组件起始标签和结束标签之间的任何内容都会被抛弃。
+
+            父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的。
+
+            template标签中可以访问父组件中的变量，但是不可以访问子组件中的变量      //因为编译作用域问题
+            slot中可以访问子组件中的变量，但是不可以访问父组件中的变量             //因为组件传值问题
+
+            我们定义一个子组件的插槽时，子组件的插槽的template中定义的是子组件的中要渲染的内容，但是却在父组件中编译，
+            在子组件的插槽的template中我们应该要可以使用子组件中的变量数据，但是因为其在父组件中编译，所以访问不到，
+            
+            为了解决这个问题，我们可以使用作用域插槽，
+            将template中所需要的用到的子组件中的变量绑定到对应的slot标签上，然后在对应的template中即可使用这些变量，
+        */
+        ;
+        /*
+            在插槽的slot标签上使用v-bind绑定一个个变量   ：<slot :传递过去后对象上要使用的属性名="要传递的变量"></slot>
+            在插槽的template标签上使用v-slot来接收变量  ：<template v-slot:插槽名="接收后，使用时要写的对象名"></template>
+            当为默认插槽时，插槽名可省略                ：<template v-slot="接收后，使用时要写的对象名"></template>
+            所以在接收传递过来的变量时，我们还可以使用解构赋值的写法
+                                                      ：<template v-slot:插槽名="{接收后，使用时要写的属性名}"></template>
+
+            slot可以传递多个变量，无论传递多少个，在template上接收时，会以一个对象的数据形式接收，传递的变量会变成对象上的属性
+
+            作用域插槽的内部工作原理是将你的插槽内容包括在一个传入单个参数的函数里,
+            这意味着 v-slot 的值实际上可以是任何能够作为函数定义中的参数的 JavaScript 表达式。
+            同样可以使用解构赋值的重命名变量和设置默认值
+
+            当被提供的内容只有默认插槽时，组件的标签才可以被当作插槽的模板来使用。这样我们就可以把v-slot 直接用在组件上
+        */
+        Vue.component("house", {
+            data() {
+                return {
+                    girl1: "梅花十三",
+                    girl2: "梅花十一"
+                }
+            },
+            template: `<div>
+                            <slot></slot>
+                            <slot name="hou" :girl1="girl1" :girl2="girl2"></slot>
+                            <bashroom :girl1="girl1" :girl2="girl2">
+                                这是一个子组件
+                                <hr>
+                                <template v-slot:default="boy">
+                                    {{girl1}}
+                                    <hr>
+                                    {{girl2}}
+                                    <hr>
+                                    {{boy.boy1}}
+                                    <hr>
+                                    {{boy.boy2}}
+                                    <hr>
+                                    {{boy.boy3}}
+                                    <hr>
+                                </template>
+                            </bashroom>
+                        </div>`
+        })
+        Vue.component("bashroom", {
+            props: ["girl1", "girl2"],
+            data() {
+                return {
+                    boy1: "伍六七",
+                    boy2: "鸡大宝",
+                    boy3: "鸡小飞"
+                }
+            },
+            template: `<div>
+                            <slot :boy1="boy1" :boy2="boy2" :boy3="boy3"></slot>
+                            <slot name="bash">
+                                {{girl1}}
+                                <hr>
+                                {{girl2}}
+                                <hr>
+                                {{boy1}}
+                                <hr>
+                                {{boy2}}
+                                <hr>
+                                {{boy3}}
+                            </slot>
+                        </div>`
+        })
+        var app = new Vue({
+            el: "#app",
+            data: {
+                girl: "江主任"
+            }
+        })
+    </script>
+    <!-- <div id="app">
+        <house>
+            <template v-slot="{a,b}">
+                <div v-show="b">
+                    我是一个么有感情的杀手————{{a}}
+                </div>
+            </template>
+        </house>
+    </div>
+    <script>
+        var house = {
+            template: `<div>这是一个组件
+                            <slot :a="1" :b="false"></slot>
+                        </div>`
+        }
+        Vue.component("house", house)
+        var app = new Vue({
+            el: "#app"
+        })
+    </script> -->
+</body>
+
+</html>

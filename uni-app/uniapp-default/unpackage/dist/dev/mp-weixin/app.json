@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/list/list",
+    "pages/index/index",
+    "pages/detail/detail",
+    "pages/cssScss/cssScss"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarBackgroundColor": "#ccc",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "龙",
+    "navigationStyle": "default",
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#000",
+    "backgroundTextStyle": "light",
+    "titleImage": "./static/logo.png",
+    "transparentTitle": "always"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#e93b3d",
+    "backgroundColor": "#ccc",
+    "borderStyle": "white",
+    "position": "top",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "./static/tabFont/shouye.png",
+        "selectedIconPath": "./static/tabFont/shouyeActive.png"
+      },
+      {
+        "pagePath": "pages/list/list",
+        "text": "列表",
+        "iconPath": "./static/tabFont/fenlei.png",
+        "selectedIconPath": "./static/tabFont/fenleiActive.png"
+      },
+      {
+        "pagePath": "pages/detail/detail",
+        "text": "详情页",
+        "iconPath": "./static/tabFont/zhibo.png",
+        "selectedIconPath": "./static/tabFont/zhiboActive.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

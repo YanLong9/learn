@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+            
+        当方法和属性写在构造函数的函数体中时，代表是实例化对象的私有
+        当方法和属性写在构造函数的prototype中时，代表是实例化对象共有的
+
+        当一个属性在构造函数的函数体中有，而在其Prototype上也有时，
+        我们调用该属性时，会优先调用函数体中的，
+        如果函数体中没有，就会去找prototype上的，
+        如果还没有就会undefined，
+
+        类似于一层层的作用域，也就是原型链
+
+        p.__proto__ === CreatePerson.prototype
+        实例化对象的__proto__===构造函数的prototype
+        
+    -->
+    <script>
+        //创建一个构造函数
+        function CreatePerson(name, age) {
+            console.log(this) //作为构造函数，this指向实例化对象
+
+            this.name = name;
+            this.age = age;
+            // this.leg = 2
+            this.home = {}
+
+            // this.play = function() {
+            //     console.log(this) //指向实例化对象
+            //     console.log(this.name + "喜欢网球")
+            // }
+        }
+
+        //给这个构造函数的prototype进行定义
+        // console.log(CreatePerson)
+        // console.log(CreatePerson.prototype)
+        CreatePerson.prototype = { //将构造函数的共有方法和属性放在其prototype上
+            // leg: 3,
+            play: function() {
+                console.log(this) //指向实例化对象
+                console.log(this.name + "喜欢网球")
+            }
+        }
+
+        // console.log(CreatePerson.prototype)
+
+        // 创建实例化对象
+        var p = new CreatePerson("zhangsan", 18)
+        p.play()
+        console.log(p.leg) //当CreatePerson本身又这个属性时，就显示该属性，没有就显示prototype上的，如果prototype上还没有就undefined
+        console.log(p)
+
+
+
+        var p2 = new CreatePerson("lisi", 15)
+        p2.play()
+        console.log(p2.leg)
+        console.log(p2)
+
+        console.log(p.play === p2.play) //true
+        console.log(p.home === p2.home) //false
+
+
+        console.log(p.prototype) //undefined
+        console.log(p.__proto__) //存在
+        console.log(CreatePerson.prototype) //存在
+        console.log(CreatePerson.__proto__) //?//ƒ(){[native code]}
+
+        console.log(p.__proto__ === CreatePerson.prototype) //true
+        console.log(p.__proto__ === CreatePerson.__proto__) //false
+    </script>
+</body>
+
+</html>

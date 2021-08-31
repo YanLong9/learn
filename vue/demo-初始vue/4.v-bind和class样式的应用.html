@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .item {
+            height: 20px;
+            width: 100px;
+            background: lemonchiffon;
+        }
+        
+        .active {
+            background: lightskyblue;
+        }
+    </style>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <ul id="app">
+        <li v-for="(item,index) in arr" :key="index" :class="{active:isActive,item:true}">{{item}}</li>
+        <li v-for="(item,index) in arr" :key="index" :class="obj">{{item}}</li>
+        <li></li>
+    </ul>
+    <!--  
+        对象语法
+                
+            <li v-for="(item,index) in arr" :key="index" :class="{active:isActive,item:true}">{{item}}</li>
+
+        数组语法
+
+        
+
+
+
+
+        
+    -->
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                isActive: false,
+                arr: [1, 2, 3, 4, 5, 6],
+                obj: {
+                    active: false,
+                    item: true
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        工厂模式:定义一个函数，专门用来创建一个对象
+
+            优点
+                1.解决了代码重复的问题
+
+            缺点
+                1.没有使用new
+                2.浪费内存
+
+     -->
+    <script>
+        //创建一个对象
+        var obj = new Object()
+        console.log(obj)
+
+        //工厂模式创建一个对象
+        function createPerson(name, age) {
+            console.log(this)
+            var obj = new Object();
+            obj.name = name;
+            obj.age = age;
+            obj.play = function() {
+                console.log(this)
+                console.log(this.name + "喜欢网球")
+            }
+            return obj
+        }
+        // console.log(createPerson)
+        var person = createPerson()
+        var person1 = createPerson()
+        person.play()
+        person1.play()
+        console.log(person.play)
+        console.log(person1.play)
+        console.log(person.play === person1.play)
+    </script>
+</body>
+
+</html>

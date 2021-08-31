@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+
+        1. 安装    npm install --save vuex
+
+        2. src文件夹下新建一个store文件夹，在store文件夹下新建一个index.js文件
+
+        3. 在main.js中导入   import store from './store/index.js'  ，并将store挂载到vue的根组件上面
+            
+                new Vue({
+                    store:store,
+                    router,
+                    render: h => h(App)
+                }).$mount('#app')
+
+        4.store文件夹下地index.js的相关配置
+
+            1、首先引入vue和vuex
+
+                import Vue from 'vue' 
+                import Vuex form 'vuex'
+                Vue.use(Vuex) //在vue中标明使用vuex
+
+            2.接着声明一个store 的实例化对象，然后将它导出
+
+                const store = new Vuex.Store({
+
+                    //在store对象中我们主要使用到的属性只有三个state、mutations、getters
+
+                    state:{//在这个属性中保存的是我们要保存的数据，以键值对的形式写在该对象中，并给予初始值
+                        flag:true,
+                    },
+
+                    mutations: {// 相当于computed属性，用于给state中的数据重新赋值
+                                // mutations是一个同步执行的函数 他可以对state中的数据进行赋值
+                        changeFlag: function (state,newValue) {//state就是上方的state对象//newValue就是我们传递过来的新值
+                            state.flag=newValue
+                        }
+                    },
+                    
+                    getters:{ // 用于读取数据，使用该方法，可以节省效率，
+                                // 在页面中,不必每次需要state中的某一个数据时，要将整个state拿出来进行打点遍历进行读取某一个数据 
+                                // 采用该方法可以单独的返回某一个数据，节约了运行效率
+
+                        getFlag:function(state){//state就是上方的state对象
+                        ruturn state.flag
+                        }
+                    }
+                })
+                export default store
+
+
+    
+ -->
+
+    <!-- 
+        
+      在我们的路由中要怎么使用
+
+      1.我们可以直接的使用打点的方法去使用
+
+          因为将store.js写入了Vue的实例化对象中所以我们可以
+              this.$store来拿store文件中的store对象上的数据和方法
+
+                this.$store.state  
+                  //这样就可以拿到state上的数据
+
+                this.$store.commit("changeFlag",newValue)  
+
+                  //使用commit方法可以调用我们在mutations对象中定义的方法，来给state中的一些变量重新赋值
+                  //第一个参数是我们要的调用的方法名
+                  //第二个参数是我们要传进去的参数，对应对应方法中的第二个参数
+
+                this.$store.getters.getFlag
+                  
+                  //调用getters中的方法来读取数据时，不用使用()，
+                  //因为规定getters中的方法只有一个参数，代表state对象，不用传参
+                  //且getters中的方法，必须返回一个值，所以我们调用这些方法时，不用()
+
+      2.使用vuex中自带的一些方法来使用Vuex
+          
+          首先要在需要使用这些方法的路由文件中引入对应的方法
+
+          import { mapState, mapMutations, mapGetters} from 'vuex'
+
+              1.mapState是写在computed属性中的，用于读取数据
+                 
+                1.使用对象的方法
+                  export default {
+                    computed: {
+                      ...mapState({
+                        flag: state => {
+                          return state.flag;
+                          //对象的形式采用键值对的形式，值是一个箭头函数，仅有一个参数，代表state对象
+                          //相较于数组的形式，对象的形式在于我们可以自定义路由中使用的变量名
+                          //且我们可以在取到想要的state中的数据后，进行加工，或者一些其他操作，然后返回我们想要返回的值
+                          //相较于getters的方法，同样的可以在取到数据后，进行一些其他操作，并返回我们想要返回的值
+                          //不同点在于getters必须将这些操作写在store文件中，而这种方法我们可以写在对应的路由文件中
+                        }
+                      })
+                    }
+                  }
+
+                2.使用数组的方法
+                  export default {
+                    computed: {
+                      ...mapState(['flag'])//简单便捷，直接写一个字符串，字符串中放置我们要取到的state中的数据名
+                                          //在该路由中我们就可以直接使用该变量名取用state中对应的数据
+                    }
+                  }
+
+              2.mapMutations是写在methods属性中的，用于读取函数
+                  export default {
+                    methods: {
+                      ...mapMutations(['changeFlag'])
+                      //我们可以直接使用该方法来调用对应的函数
+                      //在数组中放置的是字符串，字符串中放置我们要取到的mutations中对应的函数名
+                      //在该路由中我们可以直接使用
+                          this.changeFlag(newValue)
+                      //的方法调用该函数
+                    }
+                  }
+
+              3.mapGetters是写在computed属性中的，用于读取getters中定义的返回数据的函数
+                  export default {
+                    computed: {
+                      ...mapGetters(['getFlag'])
+                      //我们可以直接使用该方法来调用对应的getters中定义的返回数据的函数
+                      //在数组中放置的是字符串，字符串中放置我们要取到的getters中对应的函数名
+                      //在该路由中我们可以直接使用
+                          this.getFlag
+                      //的方法来作为变量使用
+                    }
+                  }
+ 
+     -->
+
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        css的复用是选择器样式
+        javascript的复用是函数和构造函数
+        vue的组件是html的复用
+     -->
+    <div id="app">
+        <house :item="blue"></house>
+        <house-second :item="gray"></house-second>
+    </div>
+
+    <script>
+        ;
+        /*
+
+        组件名命名规则：
+
+            因为html中的attribute名是大小写不敏感的，所以浏览器会把所有的大写字符解释为小写字符
+
+            所以在vue注册组件中，组件以驼峰命名法命名的在html中要以kebab-case（短横线分隔命名）
+
+            也就是说组件命名和props传值属性命名最好不要使用大写字母，不然会被解析成为小写，无法与js中的名字匹配，
+
+
+            
+            然后组件的名字如果首字母大写，在html中写成小写依然可以成功渲染
+            
+            注册的组件名不管是驼峰写法还是链接符写法都可以使用连接符写法
+
+        */
+
+        //  注册组件,第一个参数是组件名,第二个参数可以传递一个变量 
+        //  传递的数据名不可使用驼峰式命名法
+
+        //template中只允许有一个根元素
+
+        var house = {
+            props: ["item"],
+            data() {
+                return {
+                    name: 'house'
+                }
+            },
+            template: `<div>这是一个{{name}}-{{item}}
+                        <bashRoom></bashRoom>
+                        </div>` //template中放置组件模板，template中只允许有一个根元素
+                //插槽的template标签中可以有多个根元素，但是组件的template模板中却只能有一个根元素
+        }
+
+        //房子-蓝色
+        Vue.component("house", house) //注册组件，第一个参数是组件名字，第二个是组件内容
+
+        // 房子-灰色
+        Vue.component("houseSecond", house)
+
+        // 浴室
+        var bashRoom = {
+            template: `<div>这是一个浴室
+                        <bashTub></bashTub>
+                        </div>`
+        }
+        Vue.component("bashRoom", bashRoom)
+
+        // 浴缸
+        Vue.component("bashTub", {
+            template: '<div>这是一个浴缸</div>'
+        })
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                blue: "蓝色",
+                gray: "灰色"
+            }
+        })
+    </script>
+</body>
+
+</html>

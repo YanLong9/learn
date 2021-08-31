@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <router-view></router-view>
+        <nav>
+            <!-- 
+                声明式路由 利用router-link来进行路由跳转
+
+                    属性       是否必传    值的类型      默认值
+
+                    to         必须       字符串/对象    无          设置基础路由跳转路径，默认使用this.$router.push()方法，
+                                                                    这种方法会留下跳转记录
+
+                    replace    非必须     布尔值         false       设置是否使用this.$router.replace()方法进行跳转代替
+                                                                    this.$router.push()方法，这种方法不会留下跳转记录
+                                                                    该属性写了就是true，不写就是false
+
+                    tag        非必须     字符串         "a"         设置router-link将会被渲染成为什么标签，默认为a标签
+
+                    append     非必须     布尔值         false       设置路由跳转路径补充路径
+                    //该属性不知道该怎么用
+
+             -->
+            <router-link to="/" tag="p">首页</router-link>
+            <router-link to="/discover" replace>发现</router-link>
+            <router-link to="/order" replace>订单</router-link>
+            <router-link to="/user" replace>我的</router-link>
+            <!-- <router-link tag="p" to="order">订单</router-link>
+            <router-link tag="p" to="order" append>订单</router-link> -->
+        </nav>
+
+    </div>
+    <script>
+        // 路由模板
+        var index = {
+            template: `<div>这里是首页</div>`
+        }
+        var discover = {
+            template: `<div>这里是发现</div>`
+        }
+        var order = {
+            template: `<div>这里是订单</div>`
+        }
+        var user = {
+            template: `<div>这里是我的</div>`
+        }
+
+        //路由注册
+        var routes = [{
+            path: "/",
+            name: "index",
+            component: index
+        }, {
+            path: "/discover",
+            name: "discover",
+            component: discover
+        }, {
+            path: "/order",
+            name: "order",
+            component: order
+        }, {
+            path: "/user",
+            name: "user",
+            component: user
+        }]
+
+        //实例化路由对象
+        const router = new VueRouter({
+            routes
+        })
+        var app = new Vue({
+            el: "#app",
+            router
+        })
+    </script>
+</body>
+
+</html>

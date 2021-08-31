@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="test">
+        <!-- 
+                react除了开发网站，还可以开发手机APP；
+                vue开发手机APP，需要借助week
+        -->
+
+        <!-- SPA  Single-Page-Application  单页面应用开发-->
+
+        <!--    
+        指令的三种写法
+
+            指令直接写在html标签内
+            1.v-关键字 
+            2.v-关键字 + “=” + 值的写法
+            3.v-关键字 + “：” + 修饰符 = “值” 
+
+    -->
+
+        <!-- 
+        v-html 与 v-text 还有 {{}}
+
+            v-html 会将字符串解析为代码块，将标签解析
+            v-text 会将字符串只解析为字符串，不解析标签
+            {{}}   插值，内部可以放置变量，表达式，函数 
+
+        注意事项：最好将v-html指令写在div标签上
+        
+     -->
+
+        <p>{{num}}</p>
+        <p>{{num+1}}</p>
+        <p>{{computer()}}</p>
+
+        <div v-text='message'></div>
+        <div v-text="code"></div>
+
+        <div v-html="message"></div>
+        <div v-html="code"></div>
+
+        <!--
+            v-bind
+                v-bind的作用是单向绑定变量，将变量绑定到标签内的属性上，将属性值绑定为一个可变的变量，
+                使得可以通过js函数代码来操作标签内的属性值，也就是数据驱动。
+
+                可以缩写为  ：
+    -->
+
+        <div :title="title" v-on:click="changeTitle">{{title}}</div>
+        <div v-bind:title="title" @click="changeTitleAgain">{{title}}</div>
+        <!-- 
+            v-on
+                v-on的作用是用来绑定事件，将事件绑定到元素上，
+ 
+                可以缩写为  @
+         -->
+
+        <!-- 
+            v-model 
+                v-model的作用是双向绑定变量，通过js来控制该变量的值，也是数据驱动的体现，
+
+               注意 用vue 写js 代码的时候不要用;结尾
+            
+         -->
+
+        <input type="text" v-model="accound">
+        <button @click="getAccound">{{accound}}</button>
+
+        <!-- 
+            v-show
+                使用css样式的display来控制元素的显示和隐藏
+
+            v-if、v-else
+                通过操作dom来操作元素的显示和隐藏，原理是通过判断来确定对应代码块的运行与否
+
+         -->
+        <br>
+        <br>
+        <br>
+        <!-- <div v-show="show">有我没你</div> -->
+        <div v-if="show">有我没你</div>
+        <!-- <div v-else>有你没我</div> -->
+        <button @click="changeShow">changeShow</button>
+        <br>
+        <br>
+        <br>
+
+        <!-- 
+            v-for       使用v-for时，最好加一个key值，这里key值有问题
+
+            循环数组
+
+            v-for="变量 in 数组名"
+            v-for="(变量,下标名) in 数组名"
+
+            循环对象
+
+            v-for="变量 in 对象名"
+            v-for="(变量,属性名) in 对象名"
+            v-for="(变量,属性名,下标名) in 对象名"
+
+            v-for   也可以接受整数。在这种情况下，它会把模板重复对应次数。
+
+            v-for="n in 10"  将该部分代码重复10次，n:1,2,3,4,5,6,7,8,9,10
+         -->
+        <div v-for="item in arrFor" :key="item.id">{{item}}</div>
+        <p>分割线</p>
+        <div v-for="(item,index) in arrFor" :key="index">{{item}}:{{index}}</div>
+        <p>分割线</p>
+        <div v-for="(item,index,key) in arrFor" :key="index">{{item}}:{{index}}:{{key}}</div>
+        <p>分割线</p>
+
+        <div v-for="item in objFor">{{item}}</div>
+        <div v-for="(item,key) in objFor">{{key}}:{{item}}</div>
+        <div v-for="(item,key,index) in objFor" :key="index">{{key}}:{{item}}:{{index}}</div>
+
+    </div>
+    <script>
+        var app = new Vue({
+            el: "#test",
+            data: {
+                message: "hello vue",
+                code: "<div>hello vue</div>",
+                num: 1,
+                arr: [1, 2, 3],
+                title: "吃人",
+                accound: "请输入账号",
+                show: false,
+                arrFor: [{
+                    name: "周瑜",
+                    role: "法师",
+                    id: 0
+                }, {
+                    name: "东皇太一",
+                    role: "坦克",
+                    id: 1
+                }],
+                objFor: {
+                    name: "周瑜",
+                    role: "法师",
+                    male: "男"
+                }
+            },
+            methods: {
+                // 在该实例对象中this指向的是该vue构造函数的实例对象
+                computer: function() {
+                    return this.num + 2
+                },
+                changeTitle() {
+                    this.title = "吃人.ing"
+                },
+                changeTitleAgain() {
+                    this.title = "仁义道德"
+                },
+                getAccound() {
+                    console.log(this.accound)
+                },
+                changeShow() {
+                    this.show = !this.show
+                    var _this = this
+                    setTimeout(function() {
+                        _this.show = !_this.show
+                    }, 3000)
+                }
+            },
+            watch: { //?
+                message: function(newMessage, oldMessage) {
+                    console.log(newMessage)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
