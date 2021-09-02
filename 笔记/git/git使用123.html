@@ -101,6 +101,11 @@
 
                 git status                                   切换到本地分支，在该分支下输入该命令，即可查看本地该分支关联的哪一个远程分支
 
+                    可以用来查看当前git版本库、git暂存区/索引、工作区的状态，以及修改信息
+                    查看有没有变更的状态，并且查看哪些变更已经加入了暂存区，
+                    红色的变更表示只存在于工作区，还未加入暂存区，
+                    绿色的变更表示已经加入到暂存区，这些变更将会被提交。
+
             5.如何在不提交本分支中的修改内容的情况下，切换到其他分支-------储藏操作
 
                 git stash save '注释'                         将工作区和暂存区的更改储存起来
@@ -164,6 +169,40 @@
 
                         git branch feat-test HEAD@{3}
 
+                恢复删除的分支后，可能要重新关联远程分支，并重新配置global config，才能够重新使用该分支
+
+            9.git版本回退
+
+                git reset --hard <hash>                   通过hash来回退到之前提交的某一个节点
+
+                    git log --oneline                     用来查找hash值
+
+                    当回退过后，会发现git log --oneline查看hash值列表中在回退到的节点之后提交的节点全部消失了
+                    如果想要转换到对应的节点可以
+
+                    git reflog                            找到对应的节点
+
+                    git reset --hard <hash>               转换到对应的节点
+
+
+
+
+
+                pull.fetch.push的区别
+                以及回退、修改...提交记录的操作
+                本地分支以及远程分支的gitflow关系
+
+            9.
+
+                git log --oneline                         以简易模式查看提交的信息
+
+                git cat-file -t <hash>                    通过哈希值判断哈希对应的git对象类型
+
+                git cat-file -p <hash>                    通过哈希值，查看git对象的内容
+
+                git rev-parse <hash>                      通过简短的哈希值获取到整个哈希值
+
+                git config --global core.autocrlf false   禁用自动转换换行符：
      -->
 </body>
 
