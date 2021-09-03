@@ -179,13 +179,14 @@
 
                 git reset --hard HEAD                     清空本分支本地暂存区，工作区的所有未提交的修改变更记录，重置为最后一次提交节点状态
 
+                git reset --soft HEAD~                    将本分支最新的一次提交恢复到暂存区
                 
                 git reset <hash>                          
                     
                     HEAD指针以及暂存区中的内容都发生了变化，但是不会影响工作区，
                     也就是说，当前分支的最新提交会变成commitID对应的提交，对应提交的状态会同步到暂存区，但是工作区中的内容或者变更不受影响
 
-                git reset –soft <hash>                   
+                git reset --soft <hash>                   
 
                     将HEAD指针指向commitID对应的提交，但是不会操作暂存区和工作区，
                     当前分支中的最新提交会变成commitID对应的提交，工作区和暂存区中的内容或者变更不会受到任何影响
