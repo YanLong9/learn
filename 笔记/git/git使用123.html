@@ -15,15 +15,21 @@
 
         clone中HTTP和ssh的区别
         
-        https://blog.csdn.net/jfkidear/article/details/90376833
+            https://blog.csdn.net/jfkidear/article/details/90376833
 
-        https://blog.csdn.net/weixin_44950987/article/details/102619708
+            https://blog.csdn.net/weixin_44950987/article/details/102619708
+
+        https://backlog.com/git-tutorial/cn/
+
+        https://www.zsythink.net/archives/3290
 
         1、如何初始化本地仓库，并关联远程仓库
 
             git init                                             初始化本地仓库git
 
             git remote add 远程仓库名 远程仓库http/ssh地址         关联远程仓库
+
+            git remote rm 远程仓库名                              删除关联远程仓库
 
             git fetch                                            拉取远程仓库
 
@@ -77,6 +83,10 @@
                 以及更新了本地版本库中的提交节点记录，并不会直接将远程分支的更新同步到本地分支以及本地工作区中，多分支联合操作。
 
                 想要将远程分支的更新同步到本地分支以及本地工作区中，只要在每个本地分支上执行‘ git merge 该分支对应的远程分支 ’
+
+            git fetch <远程主机名> <分支名>
+
+                拉取远程分支的更新到本地远程分支指针，指定远程仓库与分支，单分支操作
 
             git pull
 
@@ -312,14 +322,6 @@
                 git mv 原文件路径文件名 要更改为的文件文件名         为文件重命名
 
                 git rm 原文件路径文件名                            将文件删除，并将该变更添加到暂存区
-
-            
-
-               
-
-                pull.fetch.push的区别
-                以及回退、修改...提交记录的操作
-                本地分支以及远程分支的gitflow关系
 
      -->
 </body>
