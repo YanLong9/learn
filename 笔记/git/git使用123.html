@@ -85,11 +85,11 @@
 
                 此命令表示当本地分支与上游分支同名时，对当前分支执行pull操作，对其他分支执行fetch操作，具体的差异主要取决于对应的远程分支有没有更新。
 
-            git pull remote branchA:branchB
+            git pull origin branchA:branchB
 
                 将远程分支A的更新拉取到本地分支B，只fetch远程分支A，并merge到本地分支B，不会操作其他分支，单分支操作
 
-            git pull remote branchA
+            git pull origin branchA
 
                 将远程分支A的更新拉取到本地当前所在分支，只fetch远程分支A，并merge到本地当前分支，不会操作其他分支，单分支操作
 
