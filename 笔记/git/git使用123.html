@@ -36,11 +36,27 @@
 
         3、提交 
 
-            git add .                       将更新提交到暂存区
+            git add .                                   将更新提交到暂存区
 
-            git commit -m "提交信息"         将更新提交到本地仓库
+            git commit -m "提交信息"                     将更新提交到本地仓库
 
-            git push                        将更新提交到远程仓库
+            git commit -am "提交信息"                    该命令等同于首先执行一次‘ git add . ’，然后执行一次‘ git commit -m "提交信息" ’，不过该提交只会提交已被提交过，已经被跟踪了的文件
+
+            git push origin 本地分支名:远程分支名          
+            
+                将本地分支推送到远程分支，如果远程没有该分支，那么就创建一个并进行推送
+                这样可以达到不关联远程的某一分支，但是仍然可以将本地某一分支的状态更新到该远程分支
+
+            git push                                    
+            
+                将本地分支的更新提交到该分支关联的远程仓库的分支，等同于 git push origin 本地分支a:远程分支a 的简写
+
+                在不同版本的git中执行' git push '命令的效果是不同的
+
+                    在1.x版本的git中，' git push '命令会推送所有与上游分支同名的本地分支到远程，
+
+                    而在2.x版本的git中，' git push '命令只会将当前分支推送到远程的同名上游分支
+                    所关联的上游分支必须与本地分支同名，才可用简化版命令
 
         4、配置git用户config
 
@@ -77,17 +93,23 @@
                 
                     在本地仓库从 origin/远程分支名 创建 该分支，并切换到该分支
 
-                git branch --set-upstream 本地分支 origin/远程分支名        --set-upstream已经不支持         
-                git branch --set-upstream-to=origin/远程分支名 本地分支
+            2.修改本地分支关联的远程分支
+
+                git branch --set-upstream 本地分支 origin/远程分支名        --set-upstream已经不支持 
+
+                git branch --set-upstream-to=origin/远程分支名 本地分支  ===  git branch 本地分支 --set-upstream-to=origin/远程分支名
+
+                               git branch -u origin/远程分支名 本地分支  ===  git branch 本地分支 -u origin/远程分支名
 
                     更改本地分支关联的远程分支
+                    --set-upstream-to= 可以用 -u 代替
 
-            2.通过本地命令来删除远程分支
+            3.通过本地命令来删除远程分支
 
                 git push origin --delete 远程分支              删除远程分支
                 git push origin :远程分支                      删除远程分支，相当于给远程分支推荐一个空，以达到删除远程分支的目的
 
-            3.通过本地命令来创建远程分支
+            4.通过本地命令来创建远程分支
             
                 git checkout -b 本地分支                                  在本地仓库的当前分支下创建并切换到该分支
                 git push origin 本地分支                                  将该分支推送到远程 
@@ -97,16 +119,20 @@
 
                 git branch --set-upstream-to=origin/远程分支名 本地分支    更改本地分支关联的远程分支  
 
-            4.查看本地分支关联的是哪个远程分支
+            5.查看本地分支关联的是哪个远程分支
 
-                git status                                   切换到本地分支，在该分支下输入该命令，即可查看本地该分支关联的哪一个远程分支
+                git branch -vv                               查看本地分支列表，以及每个分支关联的是哪一个远程分支
+
+                git branch -avv                              查看本地分支列表，以及每个分支关联的是哪一个远程分支，以及远程分支列表
+
+                git status
 
                     可以用来查看当前git版本库、git暂存区/索引、工作区的状态，以及修改信息
                     查看有没有变更的状态，并且查看哪些变更已经加入了暂存区，
                     红色的变更表示只存在于工作区，还未加入暂存区，
                     绿色的变更表示已经加入到暂存区，这些变更将会被提交。
 
-            5.如何在不提交本分支中的修改内容的情况下，切换到其他分支-------储藏操作
+            6.如何在不提交本分支中的修改内容的情况下，切换到其他分支-------储藏操作
 
                 git stash save '注释'                         将工作区和暂存区的更改储存起来
                 git stash list                                查看当前仓库的储存内容
@@ -125,7 +151,7 @@
                 git stash drop stashID                        删除存储列表中的一条存储内容
                 git stash clear                               删除存储列表中的所有存储内容
 
-            6.合并本地分支
+            7.合并本地分支
 
                 git rebase 分支名                              将本地仓库中的某分支合并到当前分支
 
@@ -147,7 +173,17 @@
 
                 git merge --no-ff 分支名                       非快速合并   合并过程中需要输入合并备注，写好后关闭备注文件即可自动进行接下来的合并
 
-            7.删除分支
+                git merge --ff-only 分支名                     当能使用”Fast-forward”模式合并时，合并正常执行，当不能使用”Fast-forward”模式合并时，则不进行合并。
+
+                git merge --no-edit 分支名                     不会调用vim注释文件，直接使用默认生成的注释Merge branch 分支名
+
+                git merge 分支名 --no-ff -m "注释"             不会调用vim注释文件，直接使用  -m "注释" ，来为本次合并添加注释
+
+                git merge --no-commit 分支名                   合并分支时，没有冲突会自动创建新节点的提交，使用该命令，就不会自动创建提交，而是让我们手动创建提交
+
+                git merge –abort                              合并分支遇到冲突，执行该命令放弃合并
+
+            8.删除分支
 
                 git branch –d 分支名             删除本地仓库中的某分支，删除之前必须要首先切换到其他分支，才能执行该操作
 
@@ -155,7 +191,7 @@
 
                 删除分支，只是将该分支最后一次提交的指针删除了，之前的提交记录以及提交节点都还在。（你要是吧线上，线下分支全删了，线下仓库的git文件也删了，那就怪自己作死。）
 
-            8.恢复删除的分支
+            9.恢复删除的分支
 
                 git reflog                                    
                 
@@ -171,7 +207,7 @@
 
                 恢复删除的分支后，可能要重新关联远程分支，并重新配置global config，才能够重新使用该分支
 
-            9.git版本回退
+            10.git版本回退
 
                 git reset HEAD                            清空本地暂存区的内容
 
@@ -218,29 +254,38 @@
 
                     git checkout -b 分支名   /    git branch 分支名 <hash>
 
+                git checkout -- 文件路径         将该文件恢复为暂存区存在的该文件状态，如果暂存区没有关于该文件状态的保存，那就恢复到最新一次提交的该文件状态
+
+            11.比较工作区与当前分支最后一次提交的不同之处
+
+                git diff
+
+            12.其他git命令
+
+                git log --oneline                                 以简易模式查看提交的信息
+
+                git log --oneline –all –graph                     在命令行中以字符的形式尽量接近图形化的方式展示分支
+
+                git cat-file -t <hash>                            通过哈希值判断哈希对应的git对象类型
+
+                git cat-file -p <hash>                            通过哈希值，查看git对象的内容
+
+                git rev-parse <hash>                              通过简短的哈希值获取到整个哈希值
+
+                git config --global core.autocrlf false           禁用自动转换换行符：
+
+                git mv 原文件路径文件名 要更改为的文件文件名         为文件重命名
+
+                git rm 原文件路径文件名                            将文件删除，并将该变更添加到暂存区
+
+            
+
                
 
                 pull.fetch.push的区别
                 以及回退、修改...提交记录的操作
                 本地分支以及远程分支的gitflow关系
 
-            10.比较工作区与当前分支最后一次提交的不同之处
-
-                git diff
-
-            9.
-
-                git log --oneline                         以简易模式查看提交的信息
-
-                git log --oneline –all –graph              在命令行中以字符的形式尽量接近图形化的方式展示分支
-
-                git cat-file -t <hash>                    通过哈希值判断哈希对应的git对象类型
-
-                git cat-file -p <hash>                    通过哈希值，查看git对象的内容
-
-                git rev-parse <hash>                      通过简短的哈希值获取到整个哈希值
-
-                git config --global core.autocrlf false   禁用自动转换换行符：
      -->
 </body>
 
