@@ -39,7 +39,6 @@
 
             git remote set-head origin -d                         删除origin/HEAD指针
 
-
         3、提交 
 
             git add .                                   将更新提交到暂存区
@@ -95,7 +94,7 @@
             git pull
 
                 等同于首先执行‘ git fetch ’，多分支远程更新拉取到本地远程分支指针，
-                然后执行‘ git merge 当前分支对应的远程分支 ’，将当前分支远程的更新同步拉取到本地分支以及本地工作区中
+                然后执行‘ git merge 当前分支对应的远程分支 ’，将当前分支远程的更新同步拉取到本地分支以及 本地工作区中
 
                 此命令表示当本地分支与上游分支同名时，对当前分支执行pull操作，对其他分支执行fetch操作，具体的差异主要取决于对应的远程分支有没有更新。
 
@@ -118,20 +117,22 @@
                        --local             使对应配置只针对当前仓库有效，查看当前仓库用户config配置
 
         6、分支
-            
+
             1.基础命令
 
-                git branch                      查看本地仓库中的所有分支，当前分支前面会有一个 “ * ”
+                git branch                             查看本地仓库中的所有分支，当前分支前面会有一个 “ * ”
 
-                git branch -r                   查看远程仓库中的所有分支
+                git branch -r                          查看远程仓库中的所有分支
 
-                git branch -a                   查看远程 and 本地仓库中的所有分支，当前分支前面会有一个 “ * ”，远程分支前面会有“ remotes ”
+                git branch -a                          查看远程 and 本地仓库中的所有分支，当前分支前面会有一个 “ * ”，远程分支前面会有“ remotes ”
 
-                git branch 分支名                在本地仓库中创建分支
+                git branch 分支名                        在本地仓库中创建分支
 
-                git checkout 分支名              将本地仓库中的分支切换到该分支
+                git checkout 分支名                      将本地仓库中的分支切换到该分支
 
-                git checkout –b 分支名           相当于上面两个命令的合体，在本地仓库创建并切换到该分支
+                git checkout –b 分支名                   相当于上面两个命令的合体，在本地仓库创建并切换到该分支
+
+                git branch -m oldName newName           重命名分支
 
                 git fetch 
 
@@ -144,7 +145,7 @@
 
             2.修改本地分支关联的远程分支
 
-                git branch --set-upstream 本地分支 origin/远程分支名        --set-upstream已经不支持 
+                git branch --set-upstream 本地分支 origin/远程分支名        --set-upstream已经不支持(该命令已不支持) 
 
                 git branch --set-upstream-to=origin/远程分支名 本地分支  ===  git branch 本地分支 --set-upstream-to=origin/远程分支名
 
@@ -189,7 +190,7 @@
                     stashID: On develop: message
 
 
-                git stash pop        
+                git stash pop                                 将存储列表中的最新一条存储内容恢复到对应分支的工作区和暂存区
                 git stash pop --index                         将存储列表中的最新一条存储内容恢复到对应分支的工作区和暂存区
                 git stash pop stashID                         将存储列表中指定的内容恢复到对应分支的工作区和暂存区
 
@@ -326,6 +327,20 @@
                 git mv 原文件路径文件名 要更改为的文件文件名         为文件重命名
 
                 git rm 原文件路径文件名                            将文件删除，并将该变更添加到暂存区
+
+        7、为某一个git历史提交节点添加标签
+
+            git tag <tagname>                             为当前git历史提交节点添加标签
+
+            git tag -a <tagname>                          为当前git历史提交节点添加标签，并在vim编辑器中打开注释文件，可以为改标签添加注释，写完后关闭注释文件即可进行下一步
+
+            git tag -am "注释" <tagname>                   为当前git历史提交节点添加标签，并为改标签添加注释，并不在vim编辑器中使用注释文件添加，而是直接使用命令中的注释
+
+            git tag -d <tagname>                          删除指定的标签
+
+            git tag                                       查看标签列表
+
+            git tag -n                                    查看标签列表以及对应的标签详细信息
 
      -->
 </body>

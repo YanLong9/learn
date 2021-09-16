@@ -52,7 +52,47 @@
         console.log(parent1)
         /*#################################################################*/
         console.log(Object.getPrototypeOf(point1) == point1.__proto__)
-        
+    </script>
+    <script>
+        class MyClass {
+            constructor() {
+                // ...
+            }
+            get prop() {
+                return 'getter';
+            }
+            set prop(value) {
+                console.log('setter: ' + value);
+            }
+
+            get test() {
+                return 10
+            }
+
+            test1 = 11
+
+            test2 = {
+                age: 21
+            }
+        }
+
+        let inst = new MyClass();
+
+        inst.prop = 123;
+
+        inst.prop
+        console.log(inst.test)
+        console.log(typeof inst.test)
+        console.log(inst.test1)
+        console.log(typeof inst.test1)
+
+        var inst1 = new MyClass()
+        var inst2 = new MyClass()
+        console.log(inst1)
+        console.log(inst2)
+        console.log(inst1.__proto__)
+        console.log(inst2.__proto__)
+        console.log(inst1.test2 === inst2.test2)
     </script>
 </body>
 
