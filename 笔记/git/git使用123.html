@@ -344,6 +344,8 @@
 
         8、cherry-pick
 
+            参考文档：https://www.ruanyifeng.com/blog/2020/04/git-cherry-pick.html
+
             应用场景：将其他分支上的某个提交节点状态，合并到当前分支，会影响暂存区以及工作区，并在当前分支向前提交一个提交节点
 
             git cherry-pick <hash>               
@@ -363,7 +365,34 @@
 
             git cherry-pick --signoff <hash>
 
-                cherry-pick提交消息的末尾添加一个“signoff”签名行
+                将指定提交节点状态合并到当前分支，会影响暂存区以及工作区，并在当前分支向前提交一个提交节点
+                不会产生新的自定义提交注释，新的提交节点会采用指定节点的提交注释，并在注释末尾添加一个“signoff”签名行
+
+                    例：
+                    
+                        feature-gitTest提交，test1添加了c、d                        //原来指定节点的提交注释
+
+                        Signed-off-by: YanLong9 <yanlong984@163.com>               //新添加的默认内容的签名行
+
+            git cherry-pick <HashA> <HashB>        
+
+                一次合并多个指定提交节点                  
+
+            git cherry-pick 分支名
+
+                合并指定分支的最新提交节点
+
+            git cherry-pick --continue
+
+                合并继续
+
+            git cherry-pick --abort
+
+                合并取消，并将暂存区与工作区恢复到合并前的状态
+
+            git cherry-pick --quit
+
+                合并取消，并保持合并到这一步的暂存区与工作区状态，不恢复
 
      -->
 </body>
