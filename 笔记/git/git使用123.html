@@ -373,26 +373,28 @@
                         feature-gitTest提交，test1添加了c、d                        //原来指定节点的提交注释
 
                         Signed-off-by: YanLong9 <yanlong984@163.com>               //新添加的默认内容的签名行
-
-            git cherry-pick <HashA> <HashB>        
-
-                一次合并多个指定提交节点                  
-
+ 
             git cherry-pick 分支名
 
-                合并指定分支的最新提交节点
+                合并指定分支的最新提交节点 
+                
+            git cherry-pick <HashA> <HashB>        
 
-            git cherry-pick --continue
+                一次合并多个指定提交节点，会在当前分支向前提交多个合并节点   
 
-                合并继续
+            当合并中出现冲突，解决冲突后
 
-            git cherry-pick --abort
+                git cherry-pick --continue
 
-                合并取消，并将暂存区与工作区恢复到合并前的状态
+                    合并继续，并打开vim编辑器注释文件，为解决冲突后的合并节点添加新的提交注释
 
-            git cherry-pick --quit
+                git cherry-pick --abort
 
-                合并取消，并保持合并到这一步的暂存区与工作区状态，不恢复
+                    合并取消，并将暂存区与工作区恢复到合并前的状态
+
+                git cherry-pick --quit
+
+                    合并取消，并保持合并到这一步的暂存区与工作区状态，不恢复
 
      -->
 </body>
