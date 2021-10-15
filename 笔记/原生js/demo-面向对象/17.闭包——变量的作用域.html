@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*我们在外部访问到局部作用域内部的变量后，我们该如何操作这个变量呢？*/
+        /*****************************************************************/
+
+        /*变量的作用域和赋值问题*/
+
+        function parent1() {
+            var num = 1;
+
+            function child1() {
+                // num++;
+                console.log(++num)
+                console.log(num) //2
+            }
+            child1()
+            console.log(num) //2
+        }
+        parent1()
+
+        /*
+            只要该变量被重新赋值后，其在栈中被存储的值就被改变了，无关作用域，其本身的作用域还是在声明时定义的
+            在赋值之后，在任何可以访问到该变量的作用域中，访问到的值都是被赋值之后的新值，
+        */
+
+        /*****************************************************************/
+        var num = 10000;
+
+        function parent() {
+            var num = 1;
+
+            function child() {
+                num++;
+                console.log(num)
+            }
+            return child
+        }
+
+        var a = parent() //这里运行了一次parent，给num进行声明，初始化赋值，并定义了child，将其返回
+        console.log(a)
+        a() //2//这里num初始值是1，运行一次child，num变成2
+        a() //3//这里num初始值是2，运行一次child，num变成3
+        a() //4//这里num初始值是3，运行一次child，num变成4
+
+        var b = parent()
+        b() //2
+        a() //5
+
+        /*
+            在child函数中，我们访问到的num，是parent中定义的num，
+            每运行一次child，就会对num进行一次重新赋值,但不是重新声明
+            每一次重新运行，就是一次重新赋值
+
+            所以我们可以得到：
+
+            变量的作用域链在声明时就被固定了，所以每一次重新赋值，只是改变了变量的值，并不会改变其作用域，
+            只要该变量被重新赋值后，其在栈中被存储的值就被改变了，无关作用域，其本身的作用域还是在声明时定义的
+            在赋值之后，在任何可以访问到该变量的作用域中，访问到的值都是被赋值之后的新值，
+        
+
+            除非我们再次运行了parent，num被重新声明，重新初始化，但是这样就算是再一次开辟出了新的函数进程，和原来的不是同一个了
+    
+        */
+
+        /*
+            这样我们就可以做到在局部作用域的外部访问到，并操作局部作用域中的变量了
+        */
+    </script>
+
+
+</body>
+
+</html>

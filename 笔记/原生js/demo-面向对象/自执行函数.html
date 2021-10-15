@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        ;
+        /*
+            自执行函数的两种状态
+        */
+        (function(i) {
+            var num = i;
+            console.log(num)
+        }(1)); //自执行函数结束必须加分号，不然下一个自执行函数会报错
+
+        (function(n) {
+            var num = n;
+            console.log(num)
+        })(2)
+    </script>
+</body>
+
+</html>

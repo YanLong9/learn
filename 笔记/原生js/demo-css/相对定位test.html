@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .wrap {
+            width: 100%;
+            /* min-height: 100%; */
+            /* height: 100%; */
+            background: blue;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wrap>div {
+            width: 100%;
+            height: 200px;
+        }
+
+        .box1 {
+            background: #000;
+            /* flex-shrink: 0; */
+        }
+
+        .box2 {
+            background: #333;
+            /* flex-shrink: 0; */
+            position: relative;
+            top: 50px;
+            left: 50px;
+        }
+
+        .box3 {
+            background: #666;
+            flex-grow: 2;
+            /* flex-shrink: 0; */
+        }
+
+        p {
+            width: 200px;
+            height: 25px;
+            background: red;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="box1"></div>
+        <div class="box2"></div>
+        <div class="box3"></div>
+    </div>
+
+    <p id="buttonP">快来点我啊~小帅哥~</p>
+    <script>
+        var buttonP = document.getElementById("buttonP")
+        var box2 = document.getElementsByClassName("box2")[0]
+        buttonP.addEventListener("click", function () {
+            console.log(1)
+            console.log(box2.offsetHeight)
+            if (box2.offsetHeight == 200) {
+                box2.style.height = "500px"
+            } else {
+                box2.style.height = "200px"
+            }
+
+        })
+    </script>
+</body>
+
+</html>

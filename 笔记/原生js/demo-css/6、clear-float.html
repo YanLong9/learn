@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrap {
+            width: 100%;
+            border: 1px solid red;
+        }
+        
+        .wrap div {
+            width: 400px;
+            height: 200px;
+        }
+        
+        .wrap .box1 {
+            background: red;
+        }
+        
+        .wrap .box2 {
+            background: yellow;
+            float: left;
+        }
+        
+        .wrap .box3 {
+            background: blue;
+            width: 600px;
+            height: 500px;
+        }
+        
+        .wrap .box4 {
+            background: green;
+            float: left;
+        }
+        /*wrap1*/
+        
+        .wrap1 {
+            width: 100%;
+            padding: 50px;
+            border: 20px solid red;
+            margin-top: 500px;
+            /* height: 700pxl; 定高法 */
+            /*overflow: hidden;触发BFC规则*/
+        }
+        
+        .wrap1:after {
+            content: 'after伪元素';
+            display: block;
+            background: black;
+            color: white;
+            /* clear: right; */
+            /* visibility: hidden; */
+            /* height: 0 */
+        }
+        /**/
+        
+        .wrap1 div {
+            width: 400px;
+            height: 200px;
+            float: right;
+        }
+        
+        .wrap1 .box1 {
+            background: red;
+        }
+        
+        .wrap1 .box2 {
+            background: yellow;
+        }
+        
+        .wrap1 .box3 {
+            background: blue;
+            width: 600px;
+            height: 500px;
+        }
+        
+        .wrap1 .box4 {
+            background: green;
+            height: 100px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="box1">div1</div>
+        <div class="box2">div2</div>
+        <!-- 浮动后高度并不计算在父元素中 -->
+        <div class="box3">div3</div>
+        <!-- 内容并没有被box2所遮挡 -->
+        <div class="box4">div4</div>
+        <!-- 浮动后高度并不计算在父元素中，并没有去找寻box2，在垂直位置还是固定在原地 -->
+    </div>
+
+    <div class="wrap1">
+        <div class="box1">div1</div>
+        <div class="box2">div2</div>
+        <div class="box3">div3</div>
+        <div class="box4">div4</div>
+        <!-- <div class="box4">
+            触发BFC规则,经过筛选通过该属性触发最好使用该属性，虽然容会被修剪，多余内容不可见，但是因为同级元素全部浮动，据BFC规则，重新计算父元素高度，样就不会有多余内容超出父元素，内容也就不会被修剪。触发BFC规则,经过筛选通过该属性触发最好使用该属性，虽然容会被修剪，多余内容不可见，但是因为同级元素全部浮动，据BFC规则，重新计算父元素高度，样就不会有多余内容超出父元素，内容也就不会被修剪。触发BFC规则,经过筛选通过该属性触发最好使用该属性，虽然容会被修剪，多余内容不可见，但是因为同级元素全部浮动，据BFC规则，重新计算父元素高度，样就不会有多余内容超出父元素，内容也就不会被修剪。
+        </div> -->
+        <!-- 不换行是因为英文字体的原因 -->
+    </div>
+
+
+</body>
+
+</html>

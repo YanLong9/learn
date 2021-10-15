@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        css的三大特性： 
+            1. 层叠性  
+
+                1. 优先级相同的时候，同一元素的相同属性才会发生层叠，后写的会覆盖掉前面的
+                2. 优先级高的会覆盖掉优先级低的相同属性
+                3. 根据权重计算优先级
+
+
+        
+            2. 继承性
+
+                子元素会继承祖先元素的某些样式
+
+                能继承的属性：  
+                    font系列    如：font-size....
+                    text系列    如：text-align....
+                    color
+                    line-height
+
+                ps：a标签的颜色color属性不可以继承
+
+            3. 优先级
+
+                行内样式                         1000
+                id选择器                         100
+                class选择器 伪类 属性            10
+                标签选择器 伪元素                1
+
+                通配符、子选择器、相邻选择器等的。如*、>、+、~,权值为0000。
+                继承的样式没有权值
+
+
+                权重:计算的是 花括号前面所用的选择器的权值相加
+
+                    p{}                    1   
+                    div p{}                2
+                    div>p{}                2
+                    #box>p>span{}          100+1+1 = 102
+                    #box .content>div p    100+10+1+1 = 112
+                    #box:hover .text       100+10+10=120
+                    p.text                 1-10=11
+                    
+                    子代(>)、后代( )   > 和 空格没有权值
+
+
+                    最高权值：!important (不推荐)
+                        
+                        应该放在属性值和分号之间
+
+                        color:red!important;
+     -->
+</body>
+
+</html>

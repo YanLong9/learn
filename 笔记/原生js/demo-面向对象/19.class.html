@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <script>
+        /*#################################################################*/
+        class point {
+            //构造函数
+            constructor(name, age) {
+                this.name = name
+                this.age = age
+                this.sayName = function () {
+                    console.log(this)
+                    console.log("我的名字是" + this.name)
+                }
+            }
+            //原型链prototype
+            sayAge() {
+                console.log(this)
+                console.log("我的年龄是" + this.age)
+            }
+        }
+
+        var point1 = new point("zhangsan", 18)
+        console.log(point1)
+        point1.sayAge()
+        point1.sayName()
+
+        var point2 = new point("lisi", 15)
+        console.log(point2)
+        point2.sayAge()
+        point2.sayName()
+
+        console.log(point1.sayName == point2.sayName)
+        console.log(point1.sayAge == point2.sayAge)
+
+        console.log(point == point.prototype.constructor)
+        console.log(point1.__proto__ == point.prototype)
+
+        /*#################################################################*/
+        class Parent {
+
+        }
+
+        var parent1 = new Parent()
+        console.log(parent1)
+        /*#################################################################*/
+        console.log(Object.getPrototypeOf(point1) == point1.__proto__)
+    </script>
+    <script>
+        class MyClass {
+            constructor() {
+                // ...
+            }
+            get prop() {
+                return 'getter';
+            }
+            set prop(value) {
+                console.log('setter: ' + value);
+            }
+
+            get test() {
+                return 10
+            }
+
+            test1 = 11
+
+            test2 = {
+                age: 21
+            }
+        }
+
+        let inst = new MyClass();
+
+        inst.prop = 123;
+
+        inst.prop
+        console.log(inst.test)
+        console.log(typeof inst.test)
+        console.log(inst.test1)
+        console.log(typeof inst.test1)
+
+        var inst1 = new MyClass()
+        var inst2 = new MyClass()
+        console.log(inst1)
+        console.log(inst2)
+        console.log(inst1.__proto__)
+        console.log(inst2.__proto__)
+        console.log(inst1.test2 === inst2.test2)
+    </script> -->
+    <script>
+        class Point {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+
+            toString() {
+                return '(' + this.x + ', ' + this.y + ')';
+            }
+        }
+        const point = new Point()
+        console.log(point)
+        console.log(point.__proto__)
+        console.log(Point.prototype.__proto__)
+        console.log(point.__proto__ === Point.prototype)
+        console.log(Point.prototype.__proto__ === Object.prototype)
+        console.log(Object.prototype.__proto__ === null)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //如果返回一个函数，在外部调用该函数，那么其作用域问题会是怎么样？
+
+        function parent1() {
+            var num = 2;
+            var obj = {
+                name: "lisi"
+            }
+            console.log(obj)
+
+            function child() {
+                console.log(num)
+            }
+
+            return child
+        }
+
+        var a = parent1()
+        console.log(a) //a就是返回出来的child函数
+
+        a() //这里打印的会是什么？//2
+
+        /*由此我们得出结论，变量的作用域链在函数定义的时候就已经形成，跟函数的调用位置无关 */
+    </script>
+</body>
+
+</html>

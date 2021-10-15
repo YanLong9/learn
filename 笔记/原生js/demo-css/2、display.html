@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 0;
+        }
+        
+        .block {
+            display: block;
+            background: red;
+            width: 100px;
+            height: 200px;
+            padding: 20px;
+            border: 5px solid black;
+            margin: 30px;
+            font-size: 14px;
+        }
+        
+        .in_block {
+            display: inline-block;
+            background: blue;
+            width: 100px;
+            height: 200px;
+            padding: 20px;
+            border: 5px solid black;
+            margin: 30px 30px 500px 30px;
+            font-size: 14px;
+        }
+        
+        .inline {
+            display: inline;
+            background: green;
+            width: 100px;
+            height: 200px;
+            /* padding: 20px; */
+            border: 5px solid black;
+            /* margin: 30px 30px 500px 30px; */
+            /* line-height: 50px; */
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="block">这是块元素这是块元素这是块元素这是块元素这是块元素这是块元素这是块元素这是块元素这是块元素这是块元素 </div>
+    <div class="in_block">这是行内块元素这是行内块元素这是行内块元素这是行内块元素这是行内块元素这是行内块元素这是行内块元素</div>
+    <br>
+    <div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+    </div>
+    <div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+        <div class="inline">这是行内元素</div>
+    </div>
+
+
+
+    <!-- 
+        display属性
+        
+        
+                    1）display:block
+
+                        块元素：div、p、ul、ol、li、dl、dt、dd、fieldset、form、h1~h6、hr、table 等
+                        
+                        块级元素特点：
+                            1、每个块级元素都从新的一行开始，并且其后的元素也另起一行。（真霸道，一个块级元素独占一行）
+                            2、元素的高度、宽度、行高、margin、padding、border都可设置，并起作用。
+                            3、元素宽度在不设置的情况下，是它本身父容器的100%（和父元素的宽度一致），除非设定一个宽度。
+                            4、高度不会继承，行高会继承
+                            5、内容满一行后会自动换行
+
+                    2）display:inline
+
+                        行内元素：span、a、b、strong、i、em、label、textarea、small等等，
+                       
+                        行内元素特点：
+                            1、一行内可以放置多个元素，满了一行会自动换行
+                            2、元素的高度、宽度、上下margin不可设置，上下padding、上下border可设置但是不会占用文档流中的位置
+                            3、可以在设置左右padding、左右border、左右margin可设置
+                            4、可以设置line-height，来撑起高度
+                            5、元素的宽高属性由内容撑起来
+                        
+                    3）display:inline-block
+
+                        行内块元素：img、input
+
+                        元素特点：
+                            1、并不会独占一行
+                            2、元素的高度、宽度、行高、margin、padding、border都可设置，并起作用。
+                            3、在用来排版时，注意行高属性
+                            4、元素的宽高属性由内容撑起来
+
+
+
+                    三者嵌套问题：
+                        1）块元素可以包含内联元素或某些块元素，但内联元素却不能包含块元素，它只能包含其它的内联元素
+                        2）有几个特殊的块级元素只能包含内嵌元素，不能再包含块级元素，这几个特殊的标签是：
+                　　     h1、h2、h3、h4、h5、h6、p、dt
+                        3）块级元素不能放在<p>里面
+
+                        4）块级元素与块级元素并列、内嵌元素与内嵌元素并列：
+                        <div><h2></h2><p></p></div> —— 对
+                        <div><a href=”#”></a><span></span></div> —— 对
+                        <div><h2></h2><span></span></div> —— 错
+
+                        5）a元素是万能的,可以被任何元素所包围，也可以包围任何元素
+                        6）行内元素只能包含行内元素
+    -->
+    <!--  
+
+                    1、行内块元素再IE7及其以下版本的兼容性问题
+
+                            使用了display: inline-block; 要将目标元素转换为行内块元素时，在IE7下失效了
+
+                            解决方法：给要转换的目标元素以下两个属性
+
+                                    *display: inline;    
+                                    *zoom: 1;
+                                                
+                            这里面的* 只有IE6和IE7认识，该方案只适用于IE7、IE6
+                    
+                    2、在将块元素转化成行内块的时候，每个行内块元素之间会出现4px左右的间隙
+
+                                    产生原因：
+
+                                        因为每个行内块元素之间的会有换行符或者空格的原因
+                                        但是为了格式化文档这些换行符与空格删不掉
+
+                                    解决方法：
+
+                                        给父元素一个font-size:0 ;
+                                        再给当前的元素一个正常的font-size;
+-->
+
+
+
+
+    <!--     
+    
+     标签基本结构：
+           
+            HTML 标记标签通常被称为 HTML 标签 (HTML tag)
+            HTML 标签是由尖括号包围的关键词，如 <html>
+            HTML 标签通常是成对出现的，比如 <b> 和 </b>
+            标签对中的第一个标签是开始标签，第二个标签是结束标签，开始和结束标签也被称为开放标签和闭合标签
+    
+    标签的分类：
+    
+                1. 标签的数量
+
+                    双标签
+                        有开始标签和结束标签 结束标签比开始标签多一个/,注意/的位置
+
+                        例如:<p> ....... </p>
+
+                        常见的双标签：
+                        p div h1~h6 ul li ol dl span a strong b i em
+
+                    单标签
+                        例如：<img src="" alt="">
+                        
+                        常见的单标签
+                        img input
+
+                    空标签
+                        使用中只有标签本身，并不添加其他事项。
+                        <br>  强制换行
+                        <hr>  水平线 
+
+ -->
+
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        ;
+        /*
+        
+            利用函数对象的prototype我们解决了浪费内存的问题
+        
+            普通对象的__proto__  ===  其构造函数的prototype
+            
+        
+        */
+        var arr = [12, 5, 8, 9, 6, 4]
+        var arr2 = [9, 8, 7, 6, 5, 4, 3, 2, 1];
+
+
+        //普通的给一个数组添加一个方法
+        // arr.sum = function() {
+        //     console.log(this) //指向的是实例对象arr
+        //     var result = 0;
+        //     for (var i = 0; i < this.length; i++) {
+        //         result += this[i]
+        //     }
+        //     return result
+        // }
+        // arr.sum()
+        // console.log(arr.sum())
+
+        // arr2.sum = function() {
+        //     console.log(this) //指向的是实例对象arr2
+        //     var result = 0;
+        //     for (var i = 0; i < this.length; i++) {
+        //         result += this[i]
+        //     }
+        //     return result
+        // }
+        // arr2.sum()
+        // console.log(arr2.sum())
+
+        // console.log(arr.sum)
+        // console.log(arr2.sum)
+        // console.log(arr.sum == arr2.sum)//false
+
+        //利用prototype来给数组添加一个方法
+
+        Array.prototype.sum = function() {
+            console.log(this) //指向的是实例对象arr2
+            var result = 0;
+            for (var i = 0; i < this.length; i++) {
+                result += this[i]
+            }
+            return result
+        }
+
+        arr.sum()
+        console.log(arr.sum)
+        console.log(arr.sum())
+
+        arr2.sum()
+        console.log(arr2.sum)
+        console.log(arr2.sum())
+
+        console.log(arr.sum == arr2.sum) //true
+
+        console.log(arr.__proto__ == Array.prototype) //true
+
+        console.log(Array.prototype.join)
+        console.log(arr.join)
+        console.log(arr.join === Array.prototype.join) //true
+
+        // console.log(Array)
+        // console.log(Object)
+    </script>
+</body>
+
+</html>
