@@ -1,3 +1,10 @@
+<!--
+ * @Author: YanLong
+ * @Date: 2021-09-07 17:57:41
+ * @LastEditTime: 2022-03-10 10:17:46
+ * @LastEditors: YanLong
+ * @Description: 
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +24,9 @@
         <p @click="fun">{{ msg }}</p>
         <p>{{num}}</p>
         <p>{{count}}</p>
+        <p>{{count}}</p>
         <button @click="addOne">加一</button>
+        <button @click='test'>加一</button>
     </div>
 
     <script>
@@ -32,14 +41,19 @@
             //这里的data就是MVVM中的M，专门用来保存每个页面的数据的
             data: { //data属性中，存放的是el中要用到的数据
                 msg: "hello vue", //通过vue提供的指令，很方便的就能把数据渲染到页面上，程序员不在手动操作DOM元素了【前端的vue之类的框架，不提倡我们去手动操作DOM元素了】
-                num: 1
+                num: 1,
+                num2: 1
             },
             methods: { //这里定义网页中需要使用的一些函数
-                fun: function() {
+                fun: function () {
                     console.log(this.count)
                 },
                 addOne() {
                     this.num = this.num + 1
+                },
+                test() {
+                    this.num = this.num + 1
+                    this.num2 = this.num2 - 1
                 }
             },
             computed: {
@@ -51,8 +65,10 @@
                     当依赖的data变量发生变化时，该变量会随之变化，被重新计算,页面内的显示也会被更新
                 */
                 count() {
-                    return this.num + 1
-                }
+                    console.log(123)
+                    return this.num + this.num2
+                },
+
             }
         })
     </script>

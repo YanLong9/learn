@@ -127,6 +127,13 @@
             },
             created() {
                 console.log('进入created')
+            },
+            beforeDestroy() {
+                console.log("这是beforeDestroy")
+
+            },
+            destroyed() {
+                console.log("这是destroyed")
             }
         }
         var routes = [{
